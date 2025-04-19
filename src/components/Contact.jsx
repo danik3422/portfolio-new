@@ -66,7 +66,7 @@ const Contact = () => {
 				</div>
 
 				<form
-					action='https://getform.io/f/axowelyb'
+					action='https://contact-telegram.vercel.app/api/contact'
 					method='POST'
 					className='xl:pl-10 2xl:pl-20'
 				>
