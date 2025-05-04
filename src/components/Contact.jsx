@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const socialLinks = [
 	{
 		href: 'https://github.com/danik3422',
@@ -38,6 +40,55 @@ const socialLinks = [
 ]
 
 const Contact = () => {
+	const [data, setData] = useState({
+		name: '',
+		email: '',
+		message: '',
+	})
+
+	const [status, setStatus] = useState(null) // 'success' | 'error' | null
+	const [loading, setLoading] = useState(false)
+
+	const handleChange = (e) => {
+		const { name, value } = e.target
+		setData((prev) => ({
+			...prev,
+			[name]: value,
+		}))
+	}
+	console.log(data)
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		setLoading(true)
+		setStatus(null)
+
+		try {
+			const response = await fetch(
+				'https://contact-telegram.vercel.app/api/contact',
+				{
+					method: 'POST',
+					body: JSON.stringify({ ...data }),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			)
+
+			if (response.ok) {
+				setStatus('success')
+				setData({ name: '', email: '', message: '' })
+			} else {
+				setStatus('error')
+			}
+		} catch (error) {
+			console.error('Error submitting form:', error)
+			setStatus('error')
+		} finally {
+			setLoading(false)
+		}
+	}
+
 	return (
 		<section id='contact' className='section'>
 			<div className='container lg:grid lg:grid-cols-2 lg:items-stretch'>
@@ -57,6 +108,7 @@ const Contact = () => {
 								key={key}
 								href={href}
 								target='_blank'
+								rel='noopener noreferrer'
 								className='w-12 h-12 grid place-items-center ring-inset ring-2 ring-zinc-50/5 rounded-lg transition-[background-color,color] hover:bg-zinc-50 hover:text-zinc-950 active:bg-zinc-50/80 reveal-up'
 							>
 								{icon}
@@ -65,17 +117,12 @@ const Contact = () => {
 					</div>
 				</div>
 
-				<form
-					action='https://contact-telegram.vercel.app/api/contact'
-					method='POST'
-					className='xl:pl-10 2xl:pl-20'
-				>
+				<form onSubmit={handleSubmit} className='xl:pl-10 2xl:pl-20'>
 					<div className='md:grid md:items-center md:grid-cols-2 md:gap-2'>
 						<div className='mb-4'>
 							<label htmlFor='name' className='label reveal-up'>
 								Name
 							</label>
-
 							<input
 								type='text'
 								name='name'
@@ -83,6 +130,8 @@ const Contact = () => {
 								autoComplete='name'
 								required
 								placeholder='Name'
+								value={data.name}
+								onChange={handleChange}
 								className='text-field reveal-up'
 							/>
 						</div>
@@ -91,7 +140,6 @@ const Contact = () => {
 							<label htmlFor='email' className='label reveal-up'>
 								Email
 							</label>
-
 							<input
 								type='email'
 								name='email'
@@ -99,6 +147,8 @@ const Contact = () => {
 								autoComplete='email'
 								required
 								placeholder='email@example.com'
+								value={data.email}
+								onChange={handleChange}
 								className='text-field reveal-up'
 							/>
 						</div>
@@ -108,22 +158,33 @@ const Contact = () => {
 						<label htmlFor='message' className='label reveal-up'>
 							Message
 						</label>
-
 						<textarea
 							name='message'
 							id='message'
 							placeholder='Message'
 							required
+							value={data.message}
+							onChange={handleChange}
 							className='text-field resize-y min-h-32 max-h-80 reveal-up'
 						></textarea>
 					</div>
 
 					<button
 						type='submit'
+						disabled={loading}
 						className='btn btn-primary [&]:max-w-full w-full justify-center reveal-up'
 					>
-						Submit
+						{loading ? 'Sending...' : 'Submit'}
 					</button>
+
+					{status === 'success' && (
+						<p className='text-green-500 mt-2'>Message sent successfully!</p>
+					)}
+					{status === 'error' && (
+						<p className='text-red-500 mt-2'>
+							Something went wrong. Please try again.
+						</p>
+					)}
 				</form>
 			</div>
 		</section>
