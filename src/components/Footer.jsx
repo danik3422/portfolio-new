@@ -31,6 +31,10 @@ const socials = [
 		label: 'LinkedIn',
 		href: 'https://www.linkedin.com/in/danylo-syloats/',
 	},
+	{
+		label: 'Codewars',
+		href: 'https://www.codewars.com/users/danik3422',
+	},
 ]
 
 const Footer = () => {

@@ -10,6 +10,21 @@ const works = [
 		tags: ['API', 'React', 'Development'],
 		projectLink: 'https://main--symphonious-sorbet-947052.netlify.app/',
 	},
+	{
+		imgSrc: '/images/project-2.png',
+		title: 'Chat Application',
+		tags: [
+			'API',
+			'React',
+			'Development',
+			'Socket.io',
+			'Node.js',
+			'Express',
+			'MongoDB',
+			'Tailwind CSS',
+		],
+		projectLink: 'https://github.com/danik3422/chat-app',
+	},
 ]
 
 const Work = () => {

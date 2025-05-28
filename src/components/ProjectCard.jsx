@@ -8,7 +8,7 @@ const ProjectCard = ({ imgSrc, title, tags, projectLink, classes }) => {
 				classes
 			}
 		>
-			<figure className='img-box aspect-square rounded-lg mb-4'>
+			<figure className='img-box aspect-square rounded-lg mb-4  '>
 				<img src={imgSrc} alt={title} loading='lazy' className='img-cover' />
 			</figure>
 
