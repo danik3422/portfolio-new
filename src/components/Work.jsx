@@ -23,7 +23,7 @@ const works = [
 			'MongoDB',
 			'Tailwind CSS',
 		],
-		projectLink: 'https://github.com/danik3422/chat-app',
+		projectLink: 'https://chat-app-ttjx.onrender.com/login',
 	},
 ]
 

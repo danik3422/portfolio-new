@@ -26,7 +26,7 @@ const Hero = () => {
 						<ButtonPrimary
 							label='Download CV'
 							icon='download'
-							href='/CV/CV_Danylo_Syloats_FullStack.pdf'
+							href='/CV/CV_Danylo_Syloats_Middle_FullStack.pdf'
 							download
 						/>
 

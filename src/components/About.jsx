@@ -14,11 +14,11 @@ const About = () => {
 		<section id='about' className='section'>
 			<div className='container'>
 				<div className='bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up'>
-					<p className='text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[60ch]'>
-						Hey! I&apos;m Danylo — a full-stack developer who loves turning
-						ideas into clean, fast, and beautiful websites. I focus on both how
-						things look and how they work, blending solid code with thoughtful
-						design to bring your vision to life online.
+					<p className='text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[100wh]'>
+						I&apos;m Danylo — a full-stack web developer dedicated to building
+						fast, reliable, and user-friendly websites. From intuitive frontends
+						to powerful backends, I turn ideas into digital experiences that are
+						as functional as they are beautiful.
 					</p>
 
 					<div className='flex flex-wrap items-center gap-4 md:gap-7'>
