@@ -3,21 +3,15 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ReactLenis } from 'lenis/react'
 
-/**
- * Register gsap plugins
- */
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
-/**
- * Components
- */
-import About from './components/About'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Skill from './components/Skill'
-import Work from './components/Work'
+import About from './components/About/About.jsx'
+import Contact from './components/Contact/Contact.jsx'
+import Footer from './components/Footer/Footer'
+import Header from './components/Header/Header'
+import Hero from './components/Hero/Hero'
+import Skill from './components/Skill/Skill'
+import Work from './components/Work/Work'
 
 const App = () => {
 	useGSAP(() => {
