@@ -35,7 +35,15 @@ const ProjectCard = ({ imgSrc, title, tags, projectLink, classes }) => {
 				</div>
 			</div>
 
-			<a href={projectLink} target='_blank' className='absolute inset-0'></a>
+			{projectLink && (
+				<a
+					href={projectLink}
+					target='_blank'
+					rel='noopener noreferrer'
+					aria-label={`Open ${title} project`}
+					className='absolute inset-0'
+				></a>
+			)}
 		</div>
 	)
 }

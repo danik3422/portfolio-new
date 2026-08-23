@@ -38,6 +38,24 @@ const socialLinks = [
 		alt: 'LinkedIn',
 	},
 	{
+		href: 'https://t.me/enuxe',
+		icon: (
+			<svg
+				width='24'
+				height='24'
+				viewBox='0 0 24 24'
+				fill='none'
+				xmlns='http://www.w3.org/2000/svg'
+			>
+				<path
+					d='M21.5 3.5L18.3 20.1C18.1 21.2 17.5 21.5 16.6 21L11.8 17.5L9.5 19.7C9.2 20 9 20.2 8.4 20.2L8.7 15.3L17.6 7.3C18 7 17.5 6.8 17 7.1L6 14L1.3 12.5C0.3 12.2 0.3 11.5 1.5 11L19.8 3.9C20.7 3.6 21.5 3.8 21.5 3.5Z'
+					fill='currentColor'
+				/>
+			</svg>
+		),
+		alt: 'Telegram',
+	},
+	{
 		href: 'https://www.codewars.com/users/danik3422',
 		icon: (
 			<svg
@@ -120,12 +138,13 @@ const Contact = () => {
 					</p>
 
 					<div className='flex items-center gap-2 mt-auto'>
-						{socialLinks.map(({ href, icon }, key) => (
+						{socialLinks.map(({ href, icon, alt }, key) => (
 							<a
 								key={key}
 								href={href}
 								target='_blank'
 								rel='noopener noreferrer'
+								aria-label={alt}
 								className='w-12 h-12 grid place-items-center ring-inset ring-2 ring-zinc-50/5 rounded-lg transition-[background-color,color] hover:bg-zinc-50 hover:text-zinc-950 active:bg-zinc-50/80 reveal-up'
 							>
 								{icon}
@@ -194,14 +213,41 @@ const Contact = () => {
 						{loading ? 'Sending...' : 'Submit'}
 					</button>
 
+					<div className='min-h-[88px]'>
 					{status === 'success' && (
-						<p className='text-green-500 mt-2'>Message sent successfully!</p>
+						<div
+							role='status'
+							aria-live='polite'
+							className='mt-4 flex items-start gap-3 rounded-xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-emerald-300'
+						>
+							<span className='material-symbols-rounded mt-0.5' aria-hidden='true'>
+								check_circle
+							</span>
+							<div>
+								<p className='font-medium'>Message sent successfully</p>
+								<p className='mt-1 text-sm text-emerald-200/70'>
+									Thanks for reaching out. I&apos;ll get back to you soon.
+								</p>
+							</div>
+						</div>
 					)}
 					{status === 'error' && (
-						<p className='text-red-500 mt-2'>
-							Something went wrong. Please try again.
-						</p>
+						<div
+							role='alert'
+							className='mt-4 flex items-start gap-3 rounded-xl border border-red-400/20 bg-red-400/10 p-4 text-red-300'
+						>
+							<span className='material-symbols-rounded mt-0.5' aria-hidden='true'>
+								error
+							</span>
+							<div>
+								<p className='font-medium'>Message could not be sent</p>
+								<p className='mt-1 text-sm text-red-200/70'>
+									Please check your details and try again.
+								</p>
+							</div>
+						</div>
 					)}
+					</div>
 				</form>
 			</div>
 		</section>

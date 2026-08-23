@@ -8,11 +8,15 @@ export const sitemap = [
 		href: '#about',
 	},
 	{
-		label: 'Work',
-		href: '#work',
+		label: 'Education',
+		href: '#education',
 	},
 	{
-		label: 'Contact me',
-		href: '#contact',
+		label: 'Certifications',
+		href: '#certifications',
+	},
+	{
+		label: 'Work',
+		href: '#work',
 	},
 ]

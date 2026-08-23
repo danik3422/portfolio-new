@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
-const ButtonPrimary = ({ href, target = '_self', label, icon, classes }) => {
+const ButtonPrimary = ({ href, target = '_self', label, icon, classes, onClick }) => {
 	if (href) {
 		return (
-			<a href={href} target={target} className={'btn btn-primary ' + classes}>
+			<a href={href} target={target} onClick={onClick} className={'btn btn-primary ' + classes}>
 				{label}
 
 				{icon ? (
@@ -15,7 +15,7 @@ const ButtonPrimary = ({ href, target = '_self', label, icon, classes }) => {
 		)
 	} else {
 		return (
-			<button className={'btn btn-primary ' + classes}>
+			<button type='button' onClick={onClick} className={'btn btn-primary ' + classes}>
 				{label}
 
 				{icon ? (
@@ -34,6 +34,7 @@ ButtonPrimary.propTypes = {
 	target: PropTypes.string,
 	icon: PropTypes.string,
 	classes: PropTypes.string,
+	onClick: PropTypes.func,
 }
 
 /**

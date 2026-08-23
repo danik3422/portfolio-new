@@ -8,10 +8,58 @@
 
 html {
 	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
 }
 
 body {
 	@apply bg-zinc-900 text-zinc-50;
+	min-width: 320px;
+	min-height: 100%;
+	overflow-x: hidden;
+	overflow-y: visible;
+}
+
+#root {
+	min-height: 100%;
+	overflow: clip;
+}
+
+section[id],
+footer[data-nav-section] {
+	scroll-margin-top: 5rem;
+}
+
+a,
+button,
+input,
+textarea {
+	-webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+	outline: 2px solid #38bdf8;
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }
 
 /* ---------------------------------- *\
@@ -80,7 +128,7 @@ body {
 /* Navbar */
 
 .navbar {
-	@apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-50/10 rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible transition-[opacity,transform,filter] md:static md:flex md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 backdrop-blur-2xl;
+	@apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-50/10 rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible transition-[opacity,transform,filter] duration-300 ease-out will-change-[opacity,transform,filter] md:static md:flex md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 backdrop-blur-2xl;
 }
 
 .navbar.active {
@@ -88,7 +136,7 @@ body {
 }
 
 .nav-link {
-	@apply grid items-center h-9 px-4 text-sm font-medium tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors;
+	@apply grid items-center h-9 px-4 text-sm font-medium tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors duration-200;
 }
 
 .nav-link.active {
@@ -96,7 +144,7 @@ body {
 }
 
 .navbar .active-box {
-	@apply absolute bg-zinc-50 rounded-lg -z-10 transition-[top,left] duration-500;
+	@apply absolute bg-zinc-50 rounded-lg -z-10 transition-[top,left,width,height] duration-[400ms] ease-out will-change-[top,left,width,height];
 }
 
 /* Button */

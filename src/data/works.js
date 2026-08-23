@@ -5,12 +5,14 @@ export const works = [
 	{
 		imgSrc: project1,
 		title: 'Film Finder',
+		visible: false,
 		tags: ['API', 'React', 'Development'],
 		projectLink: 'https://main--symphonious-sorbet-947052.netlify.app/',
 	},
 	{
 		imgSrc: project2,
 		title: 'Chat Application',
+		visible: false,
 		tags: [
 			'API',
 			'React',

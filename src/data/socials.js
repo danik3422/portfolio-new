@@ -8,6 +8,10 @@ export const socials = [
 		href: 'https://www.linkedin.com/in/danylo-syloats/',
 	},
 	{
+		label: 'Telegram',
+		href: 'https://t.me/enuxe',
+	},
+	{
 		label: 'Codewars',
 		href: 'https://www.codewars.com/users/danik3422',
 	},
