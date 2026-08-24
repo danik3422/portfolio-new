@@ -15,4 +15,8 @@ export const socials = [
 		label: 'Codewars',
 		href: 'https://www.codewars.com/users/danik3422',
 	},
+	{
+		label: 'Buy me a coffee',
+		href: 'https://www.buymeacoffee.com/enuxe',
+	},
 ]

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const socialLinks = [
 	{
@@ -84,7 +84,21 @@ const Contact = () => {
 	})
 
 	const [status, setStatus] = useState(null)
+	const [isStatusDismissing, setIsStatusDismissing] = useState(false)
 	const [loading, setLoading] = useState(false)
+
+	useEffect(() => {
+		if (!status) return
+		const dismissTimer = window.setTimeout(
+			() => setIsStatusDismissing(true),
+			5600,
+		)
+		const removeTimer = window.setTimeout(() => setStatus(null), 6000)
+		return () => {
+			window.clearTimeout(dismissTimer)
+			window.clearTimeout(removeTimer)
+		}
+	}, [status])
 
 	const handleChange = (e) => {
 		const { name, value } = e.target
@@ -98,6 +112,7 @@ const Contact = () => {
 		e.preventDefault()
 		setLoading(true)
 		setStatus(null)
+		setIsStatusDismissing(false)
 
 		try {
 			const response = await fetch(
@@ -108,18 +123,21 @@ const Contact = () => {
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify(data),
-				}
+				},
 			)
 
 			if (response.ok) {
 				setStatus('success')
+				setIsStatusDismissing(false)
 				setData({ name: '', email: '', message: '' })
 			} else {
 				setStatus('error')
+				setIsStatusDismissing(false)
 			}
 		} catch (error) {
 			console.error('Error submitting form:', error)
 			setStatus('error')
+			setIsStatusDismissing(false)
 		} finally {
 			setLoading(false)
 		}
@@ -213,40 +231,46 @@ const Contact = () => {
 						{loading ? 'Sending...' : 'Submit'}
 					</button>
 
-					<div className='min-h-[88px]'>
-					{status === 'success' && (
-						<div
-							role='status'
-							aria-live='polite'
-							className='mt-4 flex items-start gap-3 rounded-xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-emerald-300'
-						>
-							<span className='material-symbols-rounded mt-0.5' aria-hidden='true'>
-								check_circle
-							</span>
-							<div>
-								<p className='font-medium'>Message sent successfully</p>
-								<p className='mt-1 text-sm text-emerald-200/70'>
-									Thanks for reaching out. I&apos;ll get back to you soon.
-								</p>
+					<div className='relative h-[88px]'>
+						{status === 'success' && (
+							<div
+								role='status'
+								aria-live='polite'
+								className={`status-message absolute inset-x-0 top-0 mt-4 flex items-start gap-3 rounded-xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-emerald-300 ${isStatusDismissing ? 'status-message--out' : ''}`}
+							>
+								<span
+									className='material-symbols-rounded mt-0.5'
+									aria-hidden='true'
+								>
+									check_circle
+								</span>
+								<div>
+									<p className='font-medium'>Message sent successfully</p>
+									<p className='mt-1 text-sm text-emerald-200/70'>
+										Thanks for reaching out. I&apos;ll get back to you soon.
+									</p>
+								</div>
 							</div>
-						</div>
-					)}
-					{status === 'error' && (
-						<div
-							role='alert'
-							className='mt-4 flex items-start gap-3 rounded-xl border border-red-400/20 bg-red-400/10 p-4 text-red-300'
-						>
-							<span className='material-symbols-rounded mt-0.5' aria-hidden='true'>
-								error
-							</span>
-							<div>
-								<p className='font-medium'>Message could not be sent</p>
-								<p className='mt-1 text-sm text-red-200/70'>
-									Please check your details and try again.
-								</p>
+						)}
+						{status === 'error' && (
+							<div
+								role='alert'
+								className={`status-message absolute inset-x-0 top-0 mt-4 flex items-start gap-3 rounded-xl border border-red-400/20 bg-red-400/10 p-4 text-red-300 ${isStatusDismissing ? 'status-message--out' : ''}`}
+							>
+								<span
+									className='material-symbols-rounded mt-0.5'
+									aria-hidden='true'
+								>
+									error
+								</span>
+								<div>
+									<p className='font-medium'>Message could not be sent</p>
+									<p className='mt-1 text-sm text-red-200/70'>
+										Please check your details and try again.
+									</p>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 					</div>
 				</form>
 			</div>

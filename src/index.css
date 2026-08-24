@@ -32,6 +32,11 @@ footer[data-nav-section] {
 	scroll-margin-top: 5rem;
 }
 
+.hero-section {
+	min-height: 100vh;
+	min-height: 100svh;
+}
+
 a,
 button,
 input,
@@ -92,7 +97,11 @@ textarea:focus-visible {
 
 .material-symbols-rounded {
 	@apply w-[1em] h-[1em] overflow-hidden;
-	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+	font-variation-settings:
+		'FILL' 0,
+		'wght' 400,
+		'GRAD' 0,
+		'opsz' 24;
 }
 
 .container {
@@ -128,7 +137,11 @@ textarea:focus-visible {
 /* Navbar */
 
 .navbar {
-	@apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-50/10 rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible transition-[opacity,transform,filter] duration-300 ease-out will-change-[opacity,transform,filter] md:static md:flex md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 backdrop-blur-2xl;
+	@apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-900/95 rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible transition-[opacity,transform,filter] duration-300 ease-out will-change-[opacity,transform,filter] md:static md:flex md:flex-nowrap md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 md:bg-zinc-50/10 backdrop-blur-2xl;
+	z-index: 1;
+	-webkit-backdrop-filter: blur(24px);
+	backdrop-filter: blur(24px);
+	-webkit-transform: translateZ(0);
 }
 
 .navbar.active {
@@ -136,7 +149,7 @@ textarea:focus-visible {
 }
 
 .nav-link {
-	@apply grid items-center h-9 px-4 text-sm font-medium tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors duration-200;
+	@apply grid items-center h-9 px-4 text-sm font-medium tracking-wide text-zinc-50/50 whitespace-nowrap hover:text-zinc-50 transition-colors duration-200;
 }
 
 .nav-link.active {
@@ -144,7 +157,7 @@ textarea:focus-visible {
 }
 
 .navbar .active-box {
-	@apply absolute bg-zinc-50 rounded-lg -z-10 transition-[top,left,width,height] duration-[400ms] ease-out will-change-[top,left,width,height];
+	@apply absolute bg-zinc-50 rounded-lg z-[-1] pointer-events-none transition-[top,left,width,height] duration-[400ms] ease-out will-change-[top,left,width,height];
 }
 
 /* Button */
@@ -185,4 +198,34 @@ textarea:focus-visible {
 
 .text-field::placeholder {
 	@apply text-zinc-400;
+}
+
+.status-message {
+	animation: status-message-in 300ms ease-out both;
+}
+
+.status-message--out {
+	animation: status-message-out 400ms ease-in both;
+}
+
+@keyframes status-message-in {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes status-message-out {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
 }

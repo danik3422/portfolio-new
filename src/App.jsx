@@ -77,6 +77,7 @@ const CleanInternalNavigation = () => {
 
 	useEffect(() => {
 		const handleInternalLink = (event) => {
+			if (event.defaultPrevented) return
 			const link = event.target.closest('a[href^="#"]')
 			if (!link) return
 			if (link.closest('#primary-navigation')) return
@@ -94,7 +95,7 @@ const CleanInternalNavigation = () => {
 			window.history.replaceState(
 				null,
 				'',
-				window.location.pathname + window.location.search
+				window.location.pathname + window.location.search,
 			)
 		}
 
