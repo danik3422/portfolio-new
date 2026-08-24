@@ -7,12 +7,15 @@ import { useEffect, useState } from 'react'
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 import About from './components/About/About.jsx'
+import Blog from './components/Blog/Blog.jsx'
+import BlogPage from './components/BlogPage/BlogPage.jsx'
 import Certifications from './components/Certifications/Certifications'
 import Contact from './components/Contact/Contact.jsx'
 import Education from './components/Education/Education'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Hero from './components/Hero/Hero'
+import NotFound from './components/NotFound/NotFound.jsx'
 import Skill from './components/Skill/Skill'
 import Work from './components/Work/Work'
 
@@ -126,6 +129,9 @@ const App = () => {
 		})
 	})
 
+	if (window.location.pathname === '/blog') return <BlogPage />
+	if (window.location.pathname !== '/') return <NotFound />
+
 	return (
 		<ReactLenis root options={{ smoothWheel: false }}>
 			<ResetScrollOnLoad />
@@ -138,6 +144,7 @@ const App = () => {
 				<Certifications />
 				<Skill />
 				<Work />
+				<Blog />
 				<Contact />
 			</main>
 			<Footer />

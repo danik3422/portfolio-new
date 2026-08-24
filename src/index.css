@@ -97,6 +97,19 @@ textarea:focus-visible {
 
 .material-symbols-rounded {
 	@apply w-[1em] h-[1em] overflow-hidden;
+	display: inline-block;
+	font-family: 'Material Symbols Rounded';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: 'liga';
+	-webkit-font-smoothing: antialiased;
+	font-feature-settings: 'liga';
 	font-variation-settings:
 		'FILL' 0,
 		'wght' 400,
@@ -134,14 +147,156 @@ textarea:focus-visible {
 	@apply w-10 h-10 grid place-items-center bg-zinc-50/10 rounded-xl ring-inset ring-1 ring-zinc-50/[0.02] backdrop-blur-2xl hover:bg-zinc-50/15 transition-[transform,background-color] active:scale-95;
 }
 
+.availability-status {
+	@apply cursor-pointer rounded-full bg-zinc-50/[0.06] px-3 py-1.5 text-zinc-300 ring-1 ring-inset ring-zinc-50/10 transition-[background-color,transform];
+	box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.availability-status:hover {
+	background-color: rgb(250 250 250 / 10%);
+	transform: translateY(-2px);
+}
+
+.availability-dot {
+	box-shadow: 0 0 0 4px rgb(52 211 153 / 10%);
+}
+
 /* Navbar */
 
+@media (min-width: 768px) {
+	.site-header-inner {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+	}
+
+	.site-header-menu {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: 0;
+		transform: translate(-50%, -50%);
+	}
+
+	.site-header-menu .navbar {
+		position: static;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		margin-top: 0;
+		opacity: 1;
+		visibility: visible;
+		transform: scale(1);
+		filter: none;
+	}
+
+	.site-header-actions {
+		grid-column: 3;
+		justify-self: end;
+		white-space: nowrap;
+	}
+}
+
 .navbar {
-	@apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-900/95 rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible transition-[opacity,transform,filter] duration-300 ease-out will-change-[opacity,transform,filter] md:static md:flex md:flex-nowrap md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 md:bg-zinc-50/10 backdrop-blur-2xl;
+	@apply absolute top-full mt-2 right-0 min-w-40 flex flex-col p-2 bg-zinc-900/95 rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible transition-[opacity,transform,filter] duration-300 ease-out will-change-[opacity,transform,filter] md:static md:flex-row md:flex-nowrap md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 md:bg-zinc-50/10 backdrop-blur-2xl;
 	z-index: 1;
 	-webkit-backdrop-filter: blur(24px);
 	backdrop-filter: blur(24px);
 	-webkit-transform: translateZ(0);
+}
+
+.education-card {
+	animation: education-card-in 700ms cubic-bezier(0.16, 1, 0.3, 1);
+	touch-action: pan-y;
+	transition:
+		transform 300ms ease,
+		box-shadow 300ms ease;
+	will-change: transform;
+}
+
+.education-card:hover,
+.education-card:focus-visible {
+	transform: translateY(-4px);
+	box-shadow: 0 18px 36px rgb(0 0 0 / 18%);
+}
+
+.education-card-dragging {
+	cursor: grabbing;
+	transition: none;
+	box-shadow: 0 22px 44px rgb(0 0 0 / 24%);
+}
+
+.education-card-next {
+	animation-name: education-card-in-next;
+}
+
+.education-card-previous {
+	animation-name: education-card-in-previous;
+}
+
+@keyframes education-card-in-next {
+	from {
+		opacity: 0;
+		filter: blur(4px);
+		transform: translate3d(48px, 12px, 0) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		filter: blur(0);
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+}
+
+@keyframes education-card-in-previous {
+	from {
+		opacity: 0;
+		filter: blur(4px);
+		transform: translate3d(-48px, 12px, 0) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		filter: blur(0);
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+}
+
+.about-panel {
+	transition:
+		transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+		box-shadow 700ms ease;
+}
+
+.about-panel:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 22px 48px rgb(0 0 0 / 18%);
+}
+
+.about-stat {
+	animation: about-stat-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+	animation-delay: calc(var(--stat-index) * 100ms + 250ms);
+}
+
+@keyframes about-stat-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.education-card,
+	.about-stat {
+		animation-duration: 0.01ms;
+	}
+
+	.about-panel {
+		transition: none;
+	}
 }
 
 .navbar.active {

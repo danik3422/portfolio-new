@@ -1,10 +1,11 @@
 import logo from '@images/logo.svg'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 const Header = () => {
 	const [navOpen, setNavOpen] = useState(false)
 	const [footerVisible, setFooterVisible] = useState(false)
 	const [navVisible, setNavVisible] = useState(true)
+	const menuRef = useRef(null)
 
 	useEffect(() => {
 		const footer = document.querySelector('footer[data-nav-section="contact"]')
@@ -22,6 +23,15 @@ const Header = () => {
 			window.removeEventListener('resize', updateFooterVisibility)
 		}
 	}, [])
+
+	useEffect(() => {
+		if (!navOpen) return
+		const closeOnOutsideTap = (event) => {
+			if (!menuRef.current?.contains(event.target)) setNavOpen(false)
+		}
+		document.addEventListener('pointerdown', closeOnOutsideTap)
+		return () => document.removeEventListener('pointerdown', closeOnOutsideTap)
+	}, [navOpen])
 
 	useEffect(() => {
 		if (!footerVisible) return
@@ -51,14 +61,17 @@ const Header = () => {
 		<header
 			className={`fixed top-0 left-0 w-full h-20 flex items-center z-40 bg-gradient-to-b from-zinc-900 to-zinc-900/0 transition-opacity duration-300 ${footerVisible && !navVisible ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'}`}
 		>
-			<div className='max-w-screen-2xl w-full mx-auto px-4 flex justify-between items-center md:px-6 md:grid md:grid-cols-[minmax(0,1fr),auto,minmax(0,1fr)]'>
+			<div className='site-header-inner w-full mx-auto px-4 flex flex-nowrap justify-between items-center md:px-[5.4vw]'>
 				<h1>
 					<a href='/' className='logo'>
 						<img src={logo} width={40} height={40} alt='Danylo Syloats home' />
 					</a>
 				</h1>
 
-				<div className='relative md:justify-self-center'>
+				<div
+					ref={menuRef}
+					className='site-header-menu relative min-w-0 ml-auto'
+				>
 					<button
 						type='button'
 						aria-label={
@@ -77,12 +90,17 @@ const Header = () => {
 					<Navbar navOpen={navOpen} onNavigate={() => setNavOpen(false)} />
 				</div>
 
-				<a
-					href='#contact'
-					className='btn btn-secondary max-md:hidden md:justify-self-end'
-				>
-					Contact Me
-				</a>
+				<div className='site-header-actions flex items-center gap-2'>
+					<a href='/blog' className='btn btn-outline max-md:hidden'>
+						Blog
+						<span className='material-symbols-rounded' aria-hidden='true'>
+							arrow_outward
+						</span>
+					</a>
+					<a href='#contact' className='btn btn-secondary max-md:hidden'>
+						Contact Me
+					</a>
+				</div>
 			</div>
 		</header>
 	)

@@ -7,6 +7,7 @@ const Navbar = ({ navOpen, onNavigate }) => {
 	const activeBox = useRef()
 	const navbar = useRef()
 	const [activeLink, setActiveLinkState] = useState('#home')
+	const isBlogPage = window.location.pathname === '/blog'
 
 	const setActiveLink = useCallback((selectedLink) => {
 		setActiveLinkState(selectedLink.getAttribute('href'))
@@ -43,7 +44,7 @@ const Navbar = ({ navOpen, onNavigate }) => {
 		const id = footerIsVisible
 			? window.innerWidth < 768
 				? 'contact'
-				: 'work'
+				: 'blog'
 			: currentSection.id || currentSection.dataset.navSection
 		const link = navbar.current.querySelector(`a[href="#${id}"]`)
 		if (link) setActiveLink(link)
@@ -69,10 +70,15 @@ const Navbar = ({ navOpen, onNavigate }) => {
 	}, [positionActiveBox])
 
 	const activeCurrentLink = (event) => {
+		if (!event.currentTarget.getAttribute('href').startsWith('#')) {
+			onNavigate()
+			return
+		}
 		event.preventDefault()
 		const selectedLink = event.currentTarget
 		const target = document.getElementById(selectedLink.getAttribute('href').slice(1))
 		setActiveLink(selectedLink)
+		onNavigate()
 		if (!target) return
 		if (lenis) {
 			lenis.scrollTo(target, {
@@ -84,7 +90,6 @@ const Navbar = ({ navOpen, onNavigate }) => {
 			window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' })
 		}
 		window.history.replaceState(null, '', window.location.pathname + window.location.search)
-		onNavigate()
 	}
 
 	const navItems = [
@@ -115,6 +120,11 @@ const Navbar = ({ navOpen, onNavigate }) => {
 			className: 'nav-link',
 		},
 		{
+			label: 'Posts',
+			link: '#blog',
+			className: 'nav-link',
+		},
+		{
 			label: 'Contact',
 			link: '#contact',
 			className: 'nav-link md:hidden',
@@ -132,7 +142,11 @@ const Navbar = ({ navOpen, onNavigate }) => {
 					href={link}
 					key={key}
 					ref={ref}
-					className={`${className} ${activeLink === link ? 'active' : ''}`}
+					className={`${className} ${
+						(isBlogPage && link === '/blog') || (!isBlogPage && activeLink === link)
+							? 'active'
+							: ''
+					}`}
 					onClick={activeCurrentLink}
 				>
 					{label}

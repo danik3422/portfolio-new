@@ -30,6 +30,16 @@ const Hero = () => {
 		)
 	}
 
+	const scrollToContact = () => {
+		const target = document.getElementById('contact')
+		if (!target) return
+		if (lenis) {
+			lenis.scrollTo(target, { duration: 1, offset: -80 })
+		} else {
+			target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		}
+	}
+
 	useEffect(() => {
 		if (!isCvPreviewOpen) return
 		const previousOverflow = document.body.style.overflow
@@ -52,21 +62,32 @@ const Hero = () => {
 				id='home'
 				className='hero-section flex items-center pt-28 lg:pt-36'
 			>
-				<div className='container items-center lg:grid lg:grid-cols-2 lg:gap-10'>
+				<div className='container max-w-[1400px] items-center lg:grid lg:grid-cols-2 lg:gap-10'>
 					<div>
 						<div className='flex items-center gap-3'>
-							<div className='flex items-center gap-1.5 text-zinc-400 text-sm tracking-wide'>
-								<span className='relative w-2 h-2 rounded-full bg-emerald-400'>
+							<div
+								className='availability-status flex items-center gap-2 text-sm tracking-wide'
+								role='button'
+								tabIndex={0}
+								aria-label='Go to contact section'
+								onClick={scrollToContact}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter' || event.key === ' ') {
+										event.preventDefault()
+										scrollToContact()
+									}
+								}}
+							>
+								<span className='availability-dot relative h-2 w-2 rounded-full bg-emerald-400'>
 									<span className='absolute inset-0 rounded-full bg-emerald-400 animate-ping'></span>
 								</span>
 								Available for work
 							</div>
 						</div>
 
-						<h2 className='headline-1 max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10'>
-							Building scalable websites for both front-end and back-end
-							challenges.
-						</h2>
+						<h1 className='headline-1 max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10'>
+							Java and JavaScript developer building reliable digital products.
+						</h1>
 
 						<div className='flex items-center gap-3'>
 							<ButtonPrimary
@@ -85,7 +106,7 @@ const Hero = () => {
 					</div>
 
 					<div className='hidden lg:block'>
-						<figure className='w-full max-w-[480px] ml-auto bg-gradient-to-t from-sky-400 via-25% via-sky-400/40 to-65% rounded-[60px] overflow-hidden'>
+						<figure className='w-full max-w-[560px] ml-auto bg-zinc-50 rounded-[60px] overflow-hidden'>
 							<img
 								src={heroBanner}
 								width={656}
@@ -111,9 +132,9 @@ const Hero = () => {
 							aria-modal='true'
 							aria-labelledby='cv-preview-title'
 							aria-describedby='cv-preview-description'
-							className='flex h-[100dvh] w-full max-w-4xl flex-col overflow-hidden bg-zinc-800 ring-1 ring-inset ring-zinc-50/10 sm:h-[min(85vh,800px)] sm:rounded-2xl'
+							className='relative flex h-[100dvh] w-full max-w-4xl flex-col overflow-hidden overscroll-contain bg-zinc-800 ring-1 ring-inset ring-zinc-50/10 sm:h-[min(85vh,800px)] sm:rounded-2xl'
 						>
-							<div className='flex items-center justify-between gap-4 border-b border-zinc-50/10 px-4 py-3'>
+							<div className='relative z-10 flex shrink-0 items-center justify-between gap-4 border-b border-zinc-50/10 bg-zinc-800 px-4 py-3 pt-[calc(0.75rem+env(safe-area-inset-top))]'>
 								<div>
 									<h2 id='cv-preview-title' className='text-lg font-medium'>
 										My CV
@@ -129,7 +150,7 @@ const Hero = () => {
 									type='button'
 									aria-label='Close CV preview'
 									onClick={() => setIsCvPreviewOpen(false)}
-									className='grid h-9 w-9 place-items-center rounded-lg text-zinc-400 hover:bg-zinc-50/10 hover:text-zinc-50'
+									className='grid h-10 w-10 shrink-0 touch-manipulation place-items-center rounded-lg text-zinc-400 hover:bg-zinc-50/10 hover:text-zinc-50'
 								>
 									<span className='material-symbols-rounded' aria-hidden='true'>
 										close
@@ -153,7 +174,7 @@ const Hero = () => {
 									</a>
 								</p>
 							</iframe>
-							<div className='flex items-center justify-end gap-4 border-t border-zinc-50/10 px-4 py-3'>
+							<div className='relative z-10 flex shrink-0 items-center justify-end gap-4 border-t border-zinc-50/10 bg-zinc-800 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]'>
 								<a
 									href={cvViewUrl}
 									target='_blank'

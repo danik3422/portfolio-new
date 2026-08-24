@@ -19,4 +19,8 @@ export const sitemap = [
 		label: 'Work',
 		href: '#work',
 	},
+	{
+		label: 'Posts',
+		href: '#blog',
+	},
 ]

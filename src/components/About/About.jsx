@@ -4,17 +4,26 @@ const About = () => {
 	return (
 		<section id='about' className='section'>
 			<div className='container'>
-				<div className='bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up'>
-					<p className='text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[100wh]'>
-						I&apos;m Danylo — a full-stack web developer dedicated to building
-						fast, reliable, and user-friendly websites. From intuitive frontends
-						to powerful backends, I turn ideas into digital experiences that are
-						as functional as they are beautiful.
+				<div className='about-panel bg-zinc-800/50 p-7 rounded-2xl md:p-12 reveal-up'>
+					<p className='text-zinc-300 mb-4 md:mb-8 md:text-xl md:max-w-[70ch]'>
+						I&apos;m Danylo, a Java and JavaScript developer who enjoys turning
+						business ideas into software people can use every day. I build clear
+						interfaces with React and reliable backend services with Node.js,
+						Java, REST APIs, and PostgreSQL. I care about understanding the
+						problem before writing code, delivering work that is easy to
+						maintain, and being dependable as part of a team. I&apos;m looking
+						for a junior-to-mid-level Java or JavaScript role where I can
+						contribute from day one, take ownership of my work, and continue
+						growing with the product and the people building it.
 					</p>
 
 					<div className='flex flex-wrap items-center gap-4 md:gap-7'>
 						{aboutItems.map(({ label, number }, key) => (
-							<div key={key}>
+							<div
+								key={key}
+								className='about-stat'
+								style={{ '--stat-index': key }}
+							>
 								<div className='flex items-center md:mb-2'>
 									<span className='text-2xl font-semibold md:text-4xl'>
 										{number}
