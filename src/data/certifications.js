@@ -1,6 +1,16 @@
 export const certifications = [
 	{
-		title: 'Licenses and certifications coming soon',
-		description: 'Professional credentials will be added here.',
+		title: 'Polish language certificate - B2',
+		category: 'Language proficiency',
+		status: 'B2 level',
+		description:
+			'B2 Polish for professional communication and everyday life in Poland.',
+	},
+	{
+		title: 'English language certificate - B2',
+		category: 'Language proficiency',
+		status: 'B2 level',
+		description:
+			'B2 English for international teams, technical documentation, and digital products.',
 	},
 ]

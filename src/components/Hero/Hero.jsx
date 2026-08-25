@@ -64,7 +64,7 @@ const Hero = () => {
 			>
 				<div className='container max-w-[1400px] items-center lg:grid lg:grid-cols-2 lg:gap-10'>
 					<div>
-						<div className='flex items-center gap-3'>
+						<div className='flex flex-wrap items-center gap-3'>
 							<div
 								className='availability-status flex items-center gap-2 text-sm tracking-wide'
 								role='button'
@@ -83,6 +83,18 @@ const Hero = () => {
 								</span>
 								Available for work
 							</div>
+							<a
+								href='https://www.google.com/maps/search/?api=1&query=Warsaw%2C%20Poland'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='availability-location'
+								aria-label='Open Warsaw, Poland in Google Maps'
+							>
+								<span className='poland-flag' aria-hidden='true'>
+									<span></span>
+								</span>
+								Warsaw, Poland
+							</a>
 						</div>
 
 						<h1 className='headline-1 max-w-[15ch] sm:max-w-[20ch] lg:max-w-[15ch] mt-5 mb-8 lg:mb-10'>

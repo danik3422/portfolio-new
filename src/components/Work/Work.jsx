@@ -22,9 +22,20 @@ const Work = () => {
 					))}
 
 					{visibleWorks.length === 0 && (
-						<div className='col-span-full rounded-2xl bg-zinc-800 p-6 ring-1 ring-inset ring-zinc-50/5'>
-							<h3 className='title-1 mb-2'>New project</h3>
-							<p className='text-zinc-400'>In progress</p>
+						<div className='work-coming-soon col-span-full'>
+							<div className='work-coming-soon-icon' aria-hidden='true'>
+								<span className='material-symbols-rounded'>construction</span>
+							</div>
+							<div className='work-coming-soon-content'>
+								<div className='work-coming-soon-heading'>
+									<p>Portfolio in progress</p>
+									<span>Coming soon</span>
+								</div>
+								<h3 className='title-1 mb-2'>New projects are on the way</h3>
+								<p>
+									Selected work will appear here as each project is ready to share.
+								</p>
+							</div>
 						</div>
 					)}
 				</div>

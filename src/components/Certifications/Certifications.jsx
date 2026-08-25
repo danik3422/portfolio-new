@@ -5,15 +5,29 @@ const Certifications = () => {
 		<section id='certifications' className='section'>
 			<div className='container'>
 				<h2 className='headline-2 mb-8 reveal-up'>Licenses &amp; certifications</h2>
+				<p className='certification-intro reveal-up'>
+					A growing collection of credentials that support my work across software,
+					technology, and digital products.
+				</p>
 
-				<div className='grid gap-4 md:grid-cols-2'>
-					{certifications.map(({ title, description }, key) => (
+				<div className='certification-list'>
+					{certifications.map(({ title, category, status, description }, key) => (
 						<article
 							key={key}
-							className='rounded-2xl bg-zinc-800 p-6 ring-1 ring-inset ring-zinc-50/5 reveal-up'
+							className='certification-card reveal-up'
+							style={{ '--certification-index': key }}
 						>
-							<h3 className='title-1 mb-3'>{title}</h3>
-							<p className='text-zinc-400'>{description}</p>
+							<div className='certification-card-icon' aria-hidden='true'>
+								<span className='material-symbols-rounded'>verified</span>
+							</div>
+							<div className='certification-card-content'>
+								<div className='certification-card-meta'>
+									<span>{category}</span>
+									<span className='certification-status'>{status}</span>
+								</div>
+								<h3 className='title-1'>{title}</h3>
+								<p>{description}</p>
+							</div>
 						</article>
 					))}
 				</div>

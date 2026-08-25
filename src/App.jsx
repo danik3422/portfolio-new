@@ -9,6 +9,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger)
 import About from './components/About/About.jsx'
 import Blog from './components/Blog/Blog.jsx'
 import BlogPage from './components/BlogPage/BlogPage.jsx'
+import BlogPost from './components/BlogPost/BlogPost.jsx'
 import Certifications from './components/Certifications/Certifications'
 import Contact from './components/Contact/Contact.jsx'
 import Education from './components/Education/Education'
@@ -130,6 +131,9 @@ const App = () => {
 	})
 
 	if (window.location.pathname === '/blog') return <BlogPage />
+	if (window.location.pathname.startsWith('/blog/')) {
+		return <BlogPost slug={window.location.pathname.slice('/blog/'.length)} />
+	}
 	if (window.location.pathname !== '/') return <NotFound />
 
 	return (
@@ -144,7 +148,7 @@ const App = () => {
 				<Certifications />
 				<Skill />
 				<Work />
-				<Blog />
+				<Blog showPosts={false} />
 				<Contact />
 			</main>
 			<Footer />

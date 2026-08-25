@@ -5,7 +5,7 @@ export const education = [
 		period: 'Oct 2018 - May 2022',
 		grade: '4.15',
 		description:
-			'Focused on software development, web technologies, and the foundations of modern information systems.',
+			'This is where I built my foundation in software development, web technologies, and the information systems I now work with every day.',
 	},
 	{
 		institution: 'Vistula University',
@@ -13,7 +13,7 @@ export const education = [
 		period: 'Oct 2022 - May 2025',
 		grade: '4.29',
 		description:
-			'Advanced studies in e-commerce management, digital business, and the technologies that support online products.',
+			'I explored how digital products grow from both the business and technical sides, with a focus on e-commerce, online services, and user needs.',
 	},
 	{
 		institution: 'Vistula University',
@@ -21,6 +21,6 @@ export const education = [
 			"Bachelor's degree, Logistics, Materials, and Supply Chain Management",
 		period: 'Oct 2025 - Present',
 		description:
-			'Current studies focused on logistics, materials, and supply chain management.',
+			'I am currently learning how logistics, materials, and supply chains work together, adding a practical business perspective to my technical background.',
 	},
 ]

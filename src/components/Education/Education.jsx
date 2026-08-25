@@ -8,6 +8,7 @@ const Education = () => {
 	const [dragOffset, setDragOffset] = useState(0)
 	const swipeStart = useRef(null)
 	const wasDragged = useRef(false)
+	const wheelLockUntil = useRef(0)
 
 	const item = education[activeEducation]
 
@@ -48,7 +49,6 @@ const Education = () => {
 		setIsDragging(false)
 		setDragOffset(0)
 		if (wasDragged.current) {
-			event.preventDefault()
 			window.setTimeout(() => {
 				wasDragged.current = false
 			}, 0)
@@ -78,6 +78,19 @@ const Education = () => {
 		}
 	}
 
+	const handleWheel = (event) => {
+		const horizontalDistance = Math.abs(event.deltaX)
+		const verticalDistance = Math.abs(event.deltaY)
+		if (horizontalDistance < 12 || horizontalDistance <= verticalDistance) return
+
+		const now = Date.now()
+		if (now < wheelLockUntil.current) return
+		wheelLockUntil.current = now + 550
+		if (event.cancelable) event.preventDefault()
+		if (event.deltaX > 0) showNext()
+		else showPrevious()
+	}
+
 	return (
 		<section id='education' className='section'>
 			<div className='container'>
@@ -104,6 +117,7 @@ const Education = () => {
 						onPointerDown={handlePointerDown}
 						onPointerMove={handlePointerMove}
 						onPointerUp={handlePointerUp}
+						onWheel={handleWheel}
 						onKeyDown={handleCardKeyDown}
 						onClick={handleCardClick}
 						onPointerCancel={() => {
@@ -113,20 +127,35 @@ const Education = () => {
 							setDragOffset(0)
 						}}
 					>
-						<p className='mb-2 text-sm font-medium text-sky-400'>
-							{item.period}
-						</p>
-						<h3 className='title-1 mb-1 break-words'>{item.institution}</h3>
-						<p className='mb-4 break-words text-zinc-200'>{item.title}</p>
-						{item.grade && (
-							<p className='mb-3 text-zinc-400'>Grade: {item.grade}</p>
-						)}
-						<p className='break-words text-zinc-400'>{item.description}</p>
-						{item.certificate && (
-							<p className='mt-auto break-words border-t border-zinc-50/10 pt-4 text-sm font-medium text-zinc-200'>
-								{item.certificate}
+						<div className='education-card-header'>
+							<div className='education-card-period'>
+								<span className='material-symbols-rounded' aria-hidden='true'>
+									event
+								</span>
+								{item.period}
+							</div>
+							<span className='education-card-index'>
+								{String(activeEducation + 1).padStart(2, '0')}
+							</span>
+						</div>
+
+						<div className='education-card-content'>
+							<p className='education-card-kicker'>Academic journey</p>
+							<h3 className='title-1 break-words'>{item.institution}</h3>
+							<p className='education-card-degree break-words'>{item.title}</p>
+							<p className='education-card-description break-words'>
+								{item.description}
 							</p>
-						)}
+						</div>
+
+						<div className='education-card-footer'>
+							{item.grade ? (
+								<span className='education-card-grade'>Grade {item.grade}</span>
+							) : (
+								<span className='education-card-current'>In progress</span>
+							)}
+							<span className='education-card-hint'>Swipe to explore</span>
+						</div>
 					</article>
 
 					<div
