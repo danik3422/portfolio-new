@@ -96,23 +96,26 @@ const Footer = () => {
 
 			{isProjectModalOpen && (
 				<div
-					className='fixed inset-0 z-50 grid place-items-center bg-zinc-950/80 p-4 backdrop-blur-sm'
+					className='project-modal-backdrop fixed inset-0 z-50 grid place-items-center bg-zinc-950/80 p-4 backdrop-blur-sm'
 					onMouseDown={(event) => {
 						if (event.target === event.currentTarget) setIsProjectModalOpen(false)
 					}}
 				>
-					<div role='dialog' aria-modal='true' aria-labelledby='project-modal-title' className='w-full max-w-lg rounded-2xl bg-zinc-800 p-6 ring-1 ring-inset ring-zinc-50/10'>
-						<div className='mb-6 flex items-start justify-between gap-4'>
-							<h2 id='project-modal-title' className='headline-2'>Start a project</h2>
-							<button type='button' aria-label='Close project form' onClick={() => setIsProjectModalOpen(false)} className='grid h-9 w-9 place-items-center rounded-lg text-zinc-400 hover:bg-zinc-50/10 hover:text-zinc-50'>
+					<div role='dialog' aria-modal='true' aria-labelledby='project-modal-title' className='project-modal'>
+						<div className='project-modal-header'>
+							<div>
+								<p className='project-modal-kicker'>Let&apos;s talk</p>
+								<h2 id='project-modal-title' className='headline-2'>Start a project</h2>
+							</div>
+							<button type='button' aria-label='Close project form' onClick={() => setIsProjectModalOpen(false)} className='project-modal-close'>
 								<span className='material-symbols-rounded' aria-hidden='true'>close</span>
 							</button>
 						</div>
-						<form action='mailto:danylo.syloats@gmail.com' method='post' encType='text/plain' className='grid gap-4'>
-							<label className='grid gap-2 text-sm text-zinc-300'>Name<input name='name' required className='text-field' /></label>
-							<label className='grid gap-2 text-sm text-zinc-300'>Email<input type='email' name='email' required className='text-field' /></label>
-							<label className='grid gap-2 text-sm text-zinc-300'>Project details<textarea name='message' required className='text-field min-h-32 resize-y' /></label>
-							<button type='submit' className='btn btn-primary w-full justify-center'>Send inquiry</button>
+						<form action='mailto:danylo.syloats@gmail.com' method='post' encType='text/plain' className='project-modal-form'>
+							<label>Name<input name='name' required className='text-field' placeholder='Your name' /></label>
+							<label>Email<input type='email' name='email' required className='text-field' placeholder='you@example.com' /></label>
+							<label>Project details<textarea name='message' required className='text-field min-h-32 resize-y' placeholder='Tell me a little about your project' /></label>
+							<button type='submit' className='btn btn-primary w-full justify-center'>Send inquiry<span className='material-symbols-rounded' aria-hidden='true'>arrow_forward</span></button>
 						</form>
 					</div>
 			</div>

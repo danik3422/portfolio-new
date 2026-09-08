@@ -1,8 +1,19 @@
 import logo from '@images/logo.svg'
+import { useEffect } from 'react'
 import Blog from '../Blog/Blog'
 import Footer from '../Footer/Footer'
+import { setPageMetadata } from '../../utils/seo'
 
 const BlogPage = () => {
+	useEffect(() => {
+		setPageMetadata({
+			title: 'Blog | Danylo Syloats',
+			description:
+				'Practical notes from Danylo Syloats on frontend design, full-stack development, and building better digital products.',
+			path: '/blog',
+		})
+	}, [])
+
 	return (
 		<div className='min-h-screen bg-zinc-900'>
 			<header className='flex h-20 items-center'>

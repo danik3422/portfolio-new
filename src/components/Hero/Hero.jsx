@@ -18,10 +18,14 @@ const Hero = () => {
 		event.preventDefault()
 		const target = document.getElementById('about')
 		if (!target) return
+		const targetTop =
+			target.getBoundingClientRect().top + window.scrollY -
+			(window.innerHeight - target.offsetHeight) / 2
+		const centeredPosition = Math.max(0, targetTop)
 		if (lenis) {
-			lenis.scrollTo(target, { duration: 1, offset: -80 })
+			lenis.scrollTo(centeredPosition, { duration: 1 })
 		} else {
-			target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+			window.scrollTo({ top: centeredPosition, behavior: 'smooth' })
 		}
 		window.history.replaceState(
 			null,

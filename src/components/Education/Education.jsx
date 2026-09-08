@@ -12,6 +12,10 @@ const Education = () => {
 
 	const item = education[activeEducation]
 
+	const clearTextSelection = () => {
+		window.getSelection()?.removeAllRanges()
+	}
+
 	const showPrevious = () => {
 		setSlideDirection('previous')
 		setActiveEducation(
@@ -25,6 +29,7 @@ const Education = () => {
 	}
 
 	const handlePointerDown = (event) => {
+		clearTextSelection()
 		swipeStart.current = event.clientX
 		wasDragged.current = false
 		setIsDragging(false)
@@ -38,6 +43,7 @@ const Education = () => {
 		if (Math.abs(distance) > 8) {
 			wasDragged.current = true
 			setIsDragging(true)
+			event.preventDefault()
 		}
 		if (isDragging || Math.abs(distance) > 8) setDragOffset(distance)
 	}
@@ -48,6 +54,7 @@ const Education = () => {
 		swipeStart.current = null
 		setIsDragging(false)
 		setDragOffset(0)
+		clearTextSelection()
 		if (wasDragged.current) {
 			window.setTimeout(() => {
 				wasDragged.current = false
@@ -103,7 +110,7 @@ const Education = () => {
 				>
 					<article
 						key={activeEducation}
-						className={`education-card education-card-${slideDirection} ${isDragging ? 'education-card-dragging' : ''} flex h-80 w-full min-w-0 cursor-pointer flex-col overflow-y-auto rounded-2xl bg-zinc-800 p-6 ring-1 ring-inset ring-zinc-50/5 md:h-72`}
+						className={`education-card education-card-${slideDirection} ${isDragging ? 'education-card-dragging' : ''} flex w-full min-w-0 cursor-pointer flex-col rounded-2xl bg-zinc-800 p-6 ring-1 ring-inset ring-zinc-50/5`}
 						style={
 							isDragging
 								? {
@@ -125,6 +132,7 @@ const Education = () => {
 							wasDragged.current = false
 							setIsDragging(false)
 							setDragOffset(0)
+							clearTextSelection()
 						}}
 					>
 						<div className='education-card-header'>
@@ -158,10 +166,20 @@ const Education = () => {
 						</div>
 					</article>
 
-					<div
-						className='mt-4 flex items-center justify-center gap-2'
-						aria-label='Education entries'
-					>
+					<div className='education-controls'>
+						<button
+							type='button'
+							className='education-control'
+							aria-label='Show previous education entry'
+						title='Previous entry'
+							onClick={showPrevious}
+						>
+							<span className='material-symbols-rounded' aria-hidden='true'>
+								arrow_back
+							</span>
+						</button>
+
+						<div className='education-dots' aria-label='Education entries'>
 						{education.map((entry, index) => (
 							<button
 								key={entry.title}
@@ -177,6 +195,19 @@ const Education = () => {
 								}}
 							/>
 						))}
+						</div>
+
+						<button
+							type='button'
+							className='education-control'
+							aria-label='Show next education entry'
+							title='Next entry'
+							onClick={showNext}
+						>
+							<span className='material-symbols-rounded' aria-hidden='true'>
+								arrow_forward
+							</span>
+						</button>
 					</div>
 					<p className='sr-only' aria-live='polite'>
 						Education entry {activeEducation + 1} of {education.length}:{' '}

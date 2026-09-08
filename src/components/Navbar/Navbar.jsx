@@ -15,12 +15,14 @@ const Navbar = ({ navOpen, onNavigate }) => {
 
 	const positionActiveBox = useCallback(() => {
 		if (!activeBox.current || !navbar.current) return
-		const selectedLink = navbar.current.querySelector(
-			`a[href="${activeLink}"]`
-		)
-		if (!selectedLink) return
+		const selectedLink = navbar.current.querySelector(`a[href="${activeLink}"]`)
+		if (!selectedLink || selectedLink.offsetParent === null) {
+			activeBox.current.style.opacity = '0'
+			return
+		}
 
 		lastActiveLink.current = selectedLink
+		activeBox.current.style.opacity = '1'
 		activeBox.current.style.top = selectedLink.offsetTop + 'px'
 		activeBox.current.style.left = selectedLink.offsetLeft + 'px'
 		activeBox.current.style.width = selectedLink.offsetWidth + 'px'
@@ -30,7 +32,7 @@ const Navbar = ({ navOpen, onNavigate }) => {
 	const updateActiveLink = useCallback(() => {
 		if (!navbar.current) return
 		const sections = Array.from(
-			document.querySelectorAll('main section[id], footer[data-nav-section]')
+			document.querySelectorAll('main section[id], footer[data-nav-section]'),
 		)
 		let currentSection = sections[0]
 
@@ -40,11 +42,10 @@ const Navbar = ({ navOpen, onNavigate }) => {
 
 		if (!currentSection) return
 		const footer = document.querySelector('footer[data-nav-section="contact"]')
-		const footerIsVisible = footer && footer.getBoundingClientRect().top < window.innerHeight
+		const footerIsVisible =
+			footer && footer.getBoundingClientRect().top < window.innerHeight
 		const id = footerIsVisible
-			? window.innerWidth < 768
-				? 'contact'
-				: 'blog'
+			? 'contact'
 			: currentSection.id || currentSection.dataset.navSection
 		const link = navbar.current.querySelector(`a[href="#${id}"]`)
 		if (link) setActiveLink(link)
@@ -76,20 +77,36 @@ const Navbar = ({ navOpen, onNavigate }) => {
 		}
 		event.preventDefault()
 		const selectedLink = event.currentTarget
-		const target = document.getElementById(selectedLink.getAttribute('href').slice(1))
+		const target = document.getElementById(
+			selectedLink.getAttribute('href').slice(1),
+		)
 		setActiveLink(selectedLink)
 		onNavigate()
 		if (!target) return
+		const isAboutLink = selectedLink.getAttribute('href') === '#about'
+		const centeredPosition = Math.max(
+			0,
+			target.getBoundingClientRect().top +
+				window.scrollY -
+				(window.innerHeight - target.offsetHeight) / 2,
+		)
 		if (lenis) {
-			lenis.scrollTo(target, {
+			lenis.scrollTo(isAboutLink ? centeredPosition : target, {
 				duration: 1,
-				offset: -80,
+				...(isAboutLink ? {} : { offset: -80 }),
 				lock: false,
 			})
 		} else {
-			window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' })
+			window.scrollTo({
+				top: isAboutLink ? centeredPosition : target.offsetTop - 80,
+				behavior: 'smooth',
+			})
 		}
-		window.history.replaceState(null, '', window.location.pathname + window.location.search)
+		window.history.replaceState(
+			null,
+			'',
+			window.location.pathname + window.location.search,
+		)
 	}
 
 	const navItems = [
@@ -120,11 +137,6 @@ const Navbar = ({ navOpen, onNavigate }) => {
 			className: 'nav-link',
 		},
 		{
-			label: 'Posts',
-			link: '#blog',
-			className: 'nav-link',
-		},
-		{
 			label: 'Contact',
 			link: '#contact',
 			className: 'nav-link md:hidden',
@@ -143,7 +155,8 @@ const Navbar = ({ navOpen, onNavigate }) => {
 					key={key}
 					ref={ref}
 					className={`${className} ${
-						(isBlogPage && link === '/blog') || (!isBlogPage && activeLink === link)
+						(isBlogPage && link === '/blog') ||
+						(!isBlogPage && activeLink === link)
 							? 'active'
 							: ''
 					}`}

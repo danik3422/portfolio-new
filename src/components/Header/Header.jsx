@@ -97,7 +97,10 @@ const Header = () => {
 							arrow_outward
 						</span>
 					</a>
-					<a href='#contact' className='btn btn-secondary max-md:hidden'>
+					<a
+						href='#contact'
+						className={`btn btn-secondary max-md:hidden ${footerVisible ? 'contact-button-active' : ''}`}
+					>
 						Contact Me
 					</a>
 				</div>

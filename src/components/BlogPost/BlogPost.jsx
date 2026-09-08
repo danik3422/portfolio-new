@@ -1,11 +1,37 @@
 import logo from '@images/logo.svg'
 import { blogPosts } from '../../data/blog'
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
 import Footer from '../Footer/Footer'
 import NotFound from '../NotFound/NotFound'
+import { setPageMetadata, setStructuredData, siteUrl } from '../../utils/seo'
 
 const BlogPost = ({ slug }) => {
 	const post = blogPosts.find((entry) => entry.slug === slug)
+
+	useEffect(() => {
+		if (!post) return
+		setPageMetadata({
+			title: `${post.title} | Danylo Syloats`,
+			description: post.excerpt,
+			path: `/blog/${post.slug}`,
+			type: 'article',
+		})
+		setStructuredData({
+			'@context': 'https://schema.org',
+			'@type': 'Article',
+			'@id': `${siteUrl}/blog/${post.slug}#article`,
+			'url': `${siteUrl}/blog/${post.slug}`,
+			'headline': post.title,
+			'description': post.excerpt,
+			'author': {
+				'@type': 'Person',
+				'name': 'Danylo Syloats',
+				'url': siteUrl,
+			},
+			'inLanguage': 'en',
+		})
+	}, [post])
 
 	if (!post) return <NotFound />
 

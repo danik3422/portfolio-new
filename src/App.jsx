@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react'
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 import About from './components/About/About.jsx'
-import Blog from './components/Blog/Blog.jsx'
 import BlogPage from './components/BlogPage/BlogPage.jsx'
 import BlogPost from './components/BlogPost/BlogPost.jsx'
 import Certifications from './components/Certifications/Certifications'
@@ -118,14 +117,14 @@ const App = () => {
 			gsap.to(element, {
 				scrollTrigger: {
 					trigger: element,
-					start: '-200 bottom',
-					end: 'bottom 80%',
-					scrub: true,
+						start: 'top 88%',
+						end: 'top 55%',
+						toggleActions: 'play none none reverse',
 				},
 				y: 0,
 				opacity: 1,
-				duration: 1,
-				ease: 'power2.out',
+					duration: 0.9,
+					ease: 'power3.out',
 			})
 		})
 	})
@@ -148,7 +147,6 @@ const App = () => {
 				<Certifications />
 				<Skill />
 				<Work />
-				<Blog showPosts={false} />
 				<Contact />
 			</main>
 			<Footer />

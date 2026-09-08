@@ -22,7 +22,7 @@ const Work = () => {
 					))}
 
 					{visibleWorks.length === 0 && (
-						<div className='work-coming-soon col-span-full'>
+						<div className='work-coming-soon col-span-full reveal-up'>
 							<div className='work-coming-soon-icon' aria-hidden='true'>
 								<span className='material-symbols-rounded'>construction</span>
 							</div>
