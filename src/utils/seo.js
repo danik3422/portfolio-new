@@ -1,4 +1,5 @@
 const siteUrl = 'https://danylodev.com'
+const defaultImage = `${siteUrl}/images/projects/kanbanhub.png`
 
 const setMeta = (attribute, key, content) => {
 	let element = document.head.querySelector(`meta[${attribute}="${key}"]`)
@@ -10,7 +11,14 @@ const setMeta = (attribute, key, content) => {
 	element.setAttribute('content', content)
 }
 
-export const setPageMetadata = ({ title, description, path, type = 'website' }) => {
+export const setPageMetadata = ({
+	title,
+	description,
+	path,
+	type = 'website',
+	image = defaultImage,
+	imageAlt = 'Danylo Syloats portfolio preview',
+}) => {
 	const canonicalUrl = `${siteUrl}${path}`
 	document.title = title
 	document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl)
@@ -19,8 +27,13 @@ export const setPageMetadata = ({ title, description, path, type = 'website' }) 
 	setMeta('property', 'og:description', description)
 	setMeta('property', 'og:type', type)
 	setMeta('property', 'og:url', canonicalUrl)
+	setMeta('property', 'og:image', image)
+	setMeta('property', 'og:image:alt', imageAlt)
 	setMeta('name', 'twitter:title', title)
 	setMeta('name', 'twitter:description', description)
+	setMeta('name', 'twitter:url', canonicalUrl)
+	setMeta('name', 'twitter:image', image)
+	setMeta('name', 'twitter:image:alt', imageAlt)
 }
 
 export const setStructuredData = (data) => {
