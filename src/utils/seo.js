@@ -21,7 +21,9 @@ export const setPageMetadata = ({
 }) => {
 	const canonicalUrl = `${siteUrl}${path}`
 	document.title = title
-	document.head.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl)
+	document.head
+		.querySelector('link[rel="canonical"]')
+		?.setAttribute('href', canonicalUrl)
 	setMeta('name', 'description', description)
 	setMeta('property', 'og:title', title)
 	setMeta('property', 'og:description', description)

@@ -66,9 +66,9 @@ const Hero = () => {
 				id='home'
 				className='hero-section flex items-center pt-28 lg:pt-36'
 			>
-				<div className='container max-w-[1400px] items-center lg:grid lg:grid-cols-2 lg:gap-10'>
-					<div>
-						<div className='flex flex-wrap items-center gap-3'>
+				<div className='hero-layout w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 items-center lg:grid lg:grid-cols-2 lg:gap-12'>
+					<div className='hero-copy'>
+						<div className='hero-meta flex flex-wrap items-center gap-3'>
 							<div
 								className='availability-status flex items-center gap-2 text-sm tracking-wide'
 								role='button'
@@ -105,7 +105,7 @@ const Hero = () => {
 							Java and JavaScript developer building reliable digital products.
 						</h1>
 
-						<div className='flex items-center gap-3'>
+						<div className='hero-actions flex items-center gap-3'>
 							<ButtonPrimary
 								label='View CV'
 								icon='visibility'
@@ -121,12 +121,14 @@ const Hero = () => {
 						</div>
 					</div>
 
-					<div className='hidden lg:block'>
+					<div className='hero-visual'>
 						<figure className='w-full max-w-[560px] ml-auto bg-zinc-50 rounded-[60px] overflow-hidden'>
 							<img
 								src={heroBanner}
 								width={656}
 								height={800}
+								alt='KanbanHub workspace product preview'
+								loading='lazy'
 								className='w-full'
 							/>
 						</figure>
@@ -148,16 +150,16 @@ const Hero = () => {
 							aria-modal='true'
 							aria-labelledby='cv-preview-title'
 							aria-describedby='cv-preview-description'
-							className='relative flex h-[100dvh] w-full max-w-4xl flex-col overflow-hidden overscroll-contain bg-zinc-800 ring-1 ring-inset ring-zinc-50/10 sm:h-[min(85vh,800px)] sm:rounded-2xl'
+							className='relative flex h-[100dvh] w-full max-w-4xl flex-col overflow-hidden overscroll-contain border border-[var(--line)] bg-[var(--paper-strong)] sm:h-[min(85vh,800px)] sm:rounded-2xl'
 						>
-							<div className='relative z-10 flex shrink-0 items-center justify-between gap-4 border-b border-zinc-50/10 bg-zinc-800 px-4 py-3 pt-[calc(0.75rem+env(safe-area-inset-top))]'>
+							<div className='relative z-10 flex shrink-0 items-center justify-between gap-4 border-b border-[var(--line)] bg-[var(--paper-strong)] px-4 py-3 pt-[calc(0.75rem+env(safe-area-inset-top))]'>
 								<div>
-									<h2 id='cv-preview-title' className='text-lg font-medium'>
+									<h2 id='cv-preview-title' className='text-lg font-medium text-[var(--ink)]'>
 										My CV
 									</h2>
 									<p
 										id='cv-preview-description'
-										className='text-sm text-zinc-400'
+										className='text-sm text-[var(--muted)]'
 									>
 										Preview in your browser
 									</p>
@@ -166,7 +168,7 @@ const Hero = () => {
 									type='button'
 									aria-label='Close CV preview'
 									onClick={() => setIsCvPreviewOpen(false)}
-									className='grid h-10 w-10 shrink-0 touch-manipulation place-items-center rounded-lg text-zinc-400 hover:bg-zinc-50/10 hover:text-zinc-50'
+									className='grid h-10 w-10 shrink-0 touch-manipulation place-items-center rounded-lg text-[var(--muted)] hover:bg-[var(--paper)] hover:text-[var(--ink)]'
 								>
 									<span className='material-symbols-rounded' aria-hidden='true'>
 										close
@@ -190,18 +192,18 @@ const Hero = () => {
 									</a>
 								</p>
 							</iframe>
-							<div className='relative z-10 flex shrink-0 items-center justify-end gap-4 border-t border-zinc-50/10 bg-zinc-800 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]'>
+							<div className='relative z-10 flex shrink-0 items-center justify-end gap-4 border-t border-[var(--line)] bg-[var(--paper-strong)] px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]'>
 								<a
 									href={cvViewUrl}
 									target='_blank'
 									rel='noopener noreferrer'
-									className='text-sm text-zinc-300 hover:text-zinc-50'
+									className='text-sm text-[var(--muted)] hover:text-[var(--ink)]'
 								>
 									Open in new tab
 								</a>
 								<a
 									href={cvDownloadUrl}
-									className='text-sm text-sky-400 hover:text-sky-300'
+									className='text-sm text-[var(--coral)] hover:text-[var(--coral-dark)]'
 								>
 									Download PDF
 								</a>

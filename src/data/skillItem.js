@@ -18,25 +18,34 @@ export const skillItem = [
 	{ imgSrc: jsIcon, label: 'JavaScript', desc: 'Interaction' },
 	{ imgSrc: tsIcon, label: 'TypeScript', desc: 'JavaScript superset' },
 	{
-		imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg',
+		imgSrc:
+			'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg',
 		label: 'Java',
 		desc: 'Backend development',
 	},
 	{
-		imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg',
+		imgSrc:
+			'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg',
 		label: 'Spring Boot',
 		desc: 'Java framework',
 	},
 	{ imgSrc: nodeIcon, label: 'NodeJS', desc: 'Web Server' },
 	{ imgSrc: expressIcon, label: 'ExpressJS', desc: 'Node Framework' },
 	{
-		imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg',
+		imgSrc:
+			'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg',
 		label: 'REST APIs',
 		desc: 'Service integration',
 	},
 	{ imgSrc: mongoIcon, label: 'MongoDB', desc: 'Database' },
 	{ imgSrc: pgIcon, label: 'PostgreSQL', desc: 'Database' },
 	{ imgSrc: reactIcon, label: 'React', desc: 'Framework' },
+	{
+		imgSrc:
+			'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg',
+		label: 'Next.js',
+		desc: 'React framework',
+	},
 	{ imgSrc: tailwindIcon, label: 'TailwindCSS', desc: 'User Interface' },
 	{ imgSrc: antIcon, label: 'Ant Design', desc: 'User Interface' },
 	{ imgSrc: gitIcon, label: 'Git', desc: 'Version Control' },
@@ -44,12 +53,14 @@ export const skillItem = [
 	{ imgSrc: linuxIcon, label: 'Linux', desc: 'Operating System' },
 	{ imgSrc: reduxIcon, label: 'Redux', desc: 'State Management' },
 	{
-		imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jest/jest-plain.svg',
+		imgSrc:
+			'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jest/jest-plain.svg',
 		label: 'Testing',
 		desc: 'Quality assurance',
 	},
 	{
-		imgSrc: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-plain.svg',
+		imgSrc:
+			'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-plain.svg',
 		label: 'CI/CD',
 		desc: 'Delivery automation',
 	},

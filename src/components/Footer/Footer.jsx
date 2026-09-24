@@ -17,12 +17,15 @@ const Footer = () => {
 
 	return (
 		<footer className='section' data-nav-section='contact'>
-			<div className='container'>
-				<div className='lg:grid lg:grid-cols-2'>
-					<div className='mb-10'>
-						<h2 className='headline-1 mb-8 lg:max-w-[12ch] reveal-up'>
-							Let&apos;s work together today!
-						</h2>
+			<div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+				<div className='footer-main'>
+					<div className='footer-cta'>
+						<p className='footer-eyebrow reveal-up'>Have a project in mind?</p>
+						<h2 className='headline-1 reveal-up'>Let&apos;s build something useful.</h2>
+						<p className='footer-description reveal-up'>
+							Tell me what you are working on and I&apos;ll get back to you with a
+							clear next step.
+						</p>
 
 						<ButtonPrimary
 							label='Start project'
@@ -32,7 +35,7 @@ const Footer = () => {
 						/>
 					</div>
 
-					<div className='grid grid-cols-2 gap-4 lg:pl-20'>
+					<div className='footer-links'>
 						<div>
 							<p className='mb-2 reveal-up'>Sitemap</p>
 
@@ -41,7 +44,7 @@ const Footer = () => {
 									<li key={key}>
 										<a
 											href={href}
-											className='block text-sm text-zinc-400 py-1 transition-colors hover:text-zinc-200 reveal-up'
+											className='block text-sm text-[var(--muted)] py-1 transition-colors hover:text-[var(--ink)] reveal-up'
 										>
 											{label}
 										</a>
@@ -59,7 +62,7 @@ const Footer = () => {
 										<a
 											href={href}
 											target='_blank'
-											className='block text-sm text-zinc-400 py-1 transition-colors hover:text-zinc-200 reveal-up'
+											className='block text-sm text-[var(--muted)] py-1 transition-colors hover:text-[var(--ink)] reveal-up'
 										>
 											{label}
 										</a>
@@ -81,12 +84,12 @@ const Footer = () => {
 						/>
 					</a>
 
-					<p className='text-zinc-500 text-sm'>
+					<p className='text-[var(--muted)] text-sm'>
 						&copy; {new Date().getFullYear()}{' '}
 						<a
 							href='/'
 							aria-label='Visit danylodev.com home'
-							className='text-zinc-200 transition-colors hover:text-sky-400'
+							className='text-[var(--ink)] transition-colors hover:text-[var(--coral)]'
 						>
 							danylodev.com
 						</a>

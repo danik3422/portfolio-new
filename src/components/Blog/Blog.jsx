@@ -7,7 +7,7 @@ const Blog = ({ vertical = false, showPosts = true }) => {
 			<div className='container'>
 				<div className='blog-section-heading mb-8'>
 					<div className='w-full'>
-						<p className='mb-3 text-sm uppercase tracking-[0.2em] text-sky-400 reveal-up'>
+						<p className='mb-3 text-sm uppercase tracking-[0.2em] text-[var(--coral)] reveal-up'>
 							From the notebook
 						</p>
 						<h2 className='headline-2 reveal-up'>Thoughts on building for people</h2>
@@ -19,19 +19,19 @@ const Blog = ({ vertical = false, showPosts = true }) => {
 						{blogPosts.map(({ slug, category, title, excerpt, date, readTime }) => (
 						<article
 							key={title}
-							className='group flex min-h-72 flex-col rounded-2xl bg-zinc-800 p-5 ring-1 ring-inset ring-zinc-50/5 transition-colors hover:bg-zinc-700/60 reveal-up'
+							className='group flex min-h-72 flex-col rounded-2xl border border-[var(--line)] bg-[var(--paper-strong)] p-5 shadow-sm transition-colors hover:bg-[var(--paper)] reveal-up'
 						>
 							<div className='mb-10 flex items-center justify-between gap-3 text-xs uppercase tracking-[0.15em]'>
-								<span className='text-sky-400'>{category}</span>
-								<span className='text-zinc-500'>{date}</span>
+								<span className='text-[var(--coral)]'>{category}</span>
+								<span className='text-[var(--muted)]'>{date}</span>
 							</div>
-							<h3 className='mb-3 text-xl font-medium leading-snug text-zinc-50'>{title}</h3>
-							<p className='mb-8 text-sm leading-6 text-zinc-400'>{excerpt}</p>
-							<div className='mt-auto flex items-center justify-between border-t border-zinc-50/10 pt-4 text-sm'>
-								<span className='text-zinc-500'>{readTime}</span>
+							<h3 className='mb-3 text-xl font-medium leading-snug text-[var(--ink)]'>{title}</h3>
+							<p className='mb-8 text-sm leading-6 text-[var(--muted)]'>{excerpt}</p>
+							<div className='mt-auto flex items-center justify-between border-t border-[var(--line)] pt-4 text-sm'>
+								<span className='text-[var(--muted)]'>{readTime}</span>
 								<a
 									href={`/blog/${slug}`}
-									className='inline-flex items-center gap-2 text-zinc-300 transition-colors group-hover:text-sky-400'
+									className='inline-flex items-center gap-2 text-[var(--muted)] transition-colors group-hover:text-[var(--coral)]'
 								>
 									Read post
 									<span className='material-symbols-rounded text-[18px]' aria-hidden='true'>
@@ -52,8 +52,8 @@ const Blog = ({ vertical = false, showPosts = true }) => {
 								<p className='blog-coming-soon-label'>The notebook is open</p>
 								<span className='blog-coming-soon-status'>In progress</span>
 							</div>
-							<h3 className='mb-2 text-2xl font-medium text-zinc-50'>Coming soon</h3>
-							<p className='max-w-lg text-sm leading-6 text-zinc-400'>
+						<h3 className='mb-2 text-2xl font-medium text-[var(--ink)]'>Coming soon</h3>
+						<p className='max-w-lg text-sm leading-6 text-[var(--muted)]'>
 								New posts will appear here as soon as they are available. I&apos;m
 								preparing practical notes on design, development, and building better
 								digital products.

@@ -4,12 +4,12 @@ const ProjectCard = ({ imgSrc, title, description, tags, onSelect, classes }) =>
 	return (
 		<div
 			className={
-				'relative group overflow-hidden rounded-2xl bg-zinc-800 p-4 ring-1 ring-inset ring-zinc-50/5 transition-[transform,background-color,box-shadow] hover:-translate-y-1 hover:bg-zinc-700/50 hover:shadow-2xl hover:shadow-black/20 active:bg-zinc-700/60 ' +
+				'project-card bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/70 dark:border-neutral-800 shadow-sm rounded-2xl relative group overflow-hidden p-4 transition-[transform,background-color,box-shadow] hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 active:bg-zinc-700/60 ' +
 				classes
 			}
 		>
-			<figure className='img-box mb-5 flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl bg-zinc-950/60'>
-				<img src={imgSrc} alt={`${title} preview`} loading='lazy' className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105' />
+			<figure className='img-box mb-5 flex aspect-[3024/1666] items-center justify-center overflow-hidden rounded-xl bg-[var(--ink)]/5'>
+				<img src={imgSrc} alt={`${title} preview`} loading='lazy' decoding='async' className='h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]' />
 			</figure>
 
 			<div className='flex items-start justify-between gap-4'>
@@ -38,7 +38,7 @@ const ProjectCard = ({ imgSrc, title, description, tags, onSelect, classes }) =>
 					</div>
 				</div>
 
-				<div className='grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-sky-400 text-zinc-950 transition-transform duration-300 group-hover:rotate-[-8deg]'>
+				<div className='project-card-action grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-[var(--coral)] text-white transition-[background-color,transform] duration-300 group-hover:-translate-y-0.5'>
 					<span className='material-symbols-rounded' aria-hidden='true'>
 						arrow_outward
 					</span>
@@ -48,7 +48,7 @@ const ProjectCard = ({ imgSrc, title, description, tags, onSelect, classes }) =>
 			<button
 				type='button'
 				onClick={onSelect}
-				aria-label={`Read about ${title}`}
+				aria-label={`Open ${title} project details`}
 				className='absolute inset-0 z-10 cursor-pointer'
 			></button>
 		</div>

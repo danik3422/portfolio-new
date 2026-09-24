@@ -1,8 +1,9 @@
 import { useLenis } from 'lenis/react'
+import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-const Navbar = ({ navOpen, onNavigate }) => {
+const Navbar = ({ navOpen, onNavigate, onActiveSection }) => {
 	const lastActiveLink = useRef()
 	const activeBox = useRef()
 	const navbar = useRef()
@@ -41,15 +42,18 @@ const Navbar = ({ navOpen, onNavigate }) => {
 		})
 
 		if (!currentSection) return
+		const atPageEnd =
+			window.innerHeight + window.scrollY >= document.body.offsetHeight - 50
 		const footer = document.querySelector('footer[data-nav-section="contact"]')
 		const footerIsVisible =
 			footer && footer.getBoundingClientRect().top < window.innerHeight
-		const id = footerIsVisible
+		const id = atPageEnd || footerIsVisible
 			? 'contact'
 			: currentSection.id || currentSection.dataset.navSection
+		onActiveSection?.(id)
 		const link = navbar.current.querySelector(`a[href="#${id}"]`)
 		if (link) setActiveLink(link)
-	}, [setActiveLink])
+	}, [onActiveSection, setActiveLink])
 
 	const lenis = useLenis(updateActiveLink)
 
@@ -147,25 +151,38 @@ const Navbar = ({ navOpen, onNavigate }) => {
 		<nav
 			ref={navbar}
 			id='primary-navigation'
-			className={'navbar md:relative ' + (navOpen ? 'active' : '')}
+			className={'navbar hidden md:flex md:items-center md:gap-1 md:relative bg-transparent border-0 shadow-none ' + (navOpen ? 'active' : '')}
 		>
 			{navItems.map(({ label, link, className, ref }, key) => (
 				<a
 					href={link}
 					key={key}
 					ref={ref}
-					className={`${className} ${
+					className={`${className} text-neutral-600 hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-white font-medium text-sm transition-colors duration-200 ${
 						(isBlogPage && link === '/blog') ||
 						(!isBlogPage && activeLink === link)
-							? 'active'
+							? 'active relative text-white dark:text-neutral-900'
 							: ''
 					}`}
+					aria-current={
+						(isBlogPage && link === '/blog') ||
+						(!isBlogPage && activeLink === link)
+							? 'page'
+							: undefined
+					}
 					onClick={activeCurrentLink}
 				>
+					{((isBlogPage && link === '/blog') ||
+						(!isBlogPage && activeLink === link)) && (
+						<motion.span
+							layoutId='activePill'
+							className='absolute inset-0 -z-10 rounded-full bg-neutral-900 dark:bg-white shadow-sm'
+							transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+						/>
+					)}
 					{label}
 				</a>
 			))}
-			<div className='active-box' ref={activeBox}></div>
 		</nav>
 	)
 }
@@ -173,6 +190,7 @@ const Navbar = ({ navOpen, onNavigate }) => {
 Navbar.propTypes = {
 	navOpen: PropTypes.bool.isRequired,
 	onNavigate: PropTypes.func.isRequired,
+	onActiveSection: PropTypes.func.isRequired,
 }
 
 export default Navbar

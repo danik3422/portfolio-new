@@ -2,10 +2,10 @@ import { aboutItems } from '../../data/aboutItems'
 const About = () => {
 	return (
 		<section id='about' className='section'>
-			<div className='container'>
+			<div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<h2 className='headline-2 mb-8 reveal-up'>About me</h2>
 
-				<div className='about-panel reveal-up'>
+				<div className='about-panel bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/70 dark:border-neutral-800 shadow-sm rounded-2xl reveal-up'>
 					<div className='about-panel-content'>
 						<div className='about-intro'>
 							<p className='about-kicker'>A little about me</p>

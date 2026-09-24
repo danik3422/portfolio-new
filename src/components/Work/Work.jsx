@@ -30,10 +30,18 @@ const Work = () => {
 
 	return (
 		<section id='work' className='section'>
-			<div className='container'>
-				<h2 className='headline-2 mb-8 reveal-up'>My portfolio highlights</h2>
+			<div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+				<div className='work-section-heading reveal-up'>
+					<div>
+						<p className='work-eyebrow'>Selected work</p>
+						<h2 className='headline-2'>Built for real teams</h2>
+					</div>
+					<span className='work-count'>
+						{String(visibleWorks.length).padStart(2, '0')} / shipped
+					</span>
+				</div>
 
-				<div className='grid gap-x-4 gap-y-5 grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))]'>
+				<div className='work-grid'>
 					{visibleWorks.map((project, key) => (
 						<ProjectCard
 							key={project.title || key}
@@ -77,28 +85,28 @@ const Work = () => {
 						aria-describedby='project-details-description'
 						onWheel={(event) => event.stopPropagation()}
 						onTouchMove={(event) => event.stopPropagation()}
-						className='project-details-modal relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl touch-pan-y overscroll-contain overflow-y-auto rounded-2xl bg-gradient-to-b from-zinc-800 via-zinc-800 to-zinc-900 p-3 shadow-2xl shadow-black/50 ring-1 ring-inset ring-zinc-50/10 sm:p-5'
+						className='project-details-modal relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl touch-pan-y overscroll-contain overflow-y-auto rounded-2xl border border-[var(--line)] p-3 shadow-2xl shadow-black/30 sm:p-5'
 					>
 						<button
 							type='button'
 							aria-label='Close project details'
 							onClick={() => setSelectedProject(null)}
-							className='absolute right-5 top-5 z-10 grid h-9 w-9 place-items-center rounded-full bg-zinc-950/55 text-zinc-400 shadow-lg shadow-zinc-950/20 ring-1 ring-inset ring-zinc-50/15 backdrop-blur-md transition-[background-color,color,transform] hover:scale-105 hover:bg-zinc-950/80 hover:text-sky-300 active:scale-95'
+							className='absolute right-5 top-5 z-10 grid h-9 w-9 place-items-center rounded-full bg-[var(--ink)]/10 text-[var(--muted)] shadow-lg shadow-black/10 ring-1 ring-inset ring-[var(--line)] backdrop-blur-md transition-[background-color,color,transform] hover:scale-105 hover:bg-[var(--ink)]/20 hover:text-[var(--coral)] active:scale-95'
 						>
 							<span className='material-symbols-rounded text-[21px]' aria-hidden='true'>close</span>
 						</button>
 
-						<figure className='img-box mb-7 flex aspect-[16/10] items-center justify-center overflow-hidden rounded-xl bg-zinc-950/70 ring-1 ring-inset ring-zinc-50/10 md:aspect-[16/8]'>
+						<figure className='img-box mb-7 flex aspect-[3024/1666] items-center justify-center overflow-hidden rounded-xl bg-[var(--ink)]/5 ring-1 ring-inset ring-[var(--line)]'>
 							<img
 								src={selectedProject.imgSrc}
 								alt={`${selectedProject.title} preview`}
-								className='h-full w-full object-contain'
+								className='h-full w-full object-cover object-center'
 							/>
 						</figure>
 
 						<div className='px-1 pb-3 sm:px-2 sm:pb-5'>
 							<div className='mb-3 flex items-center justify-between gap-4'>
-								<p className='text-xs font-semibold uppercase tracking-[0.16em] text-sky-300'>
+								<p className='text-xs font-semibold uppercase tracking-[0.16em] text-[var(--coral-dark)]'>
 									Project highlight
 								</p>
 								<span className='inline-flex items-center gap-2 text-xs font-medium text-emerald-300'>
@@ -119,7 +127,7 @@ const Work = () => {
 									<ul className='grid gap-2 text-sm leading-6 text-zinc-400 sm:grid-cols-2'>
 										{selectedProject.features.map((feature) => (
 											<li key={feature} className='flex gap-2'>
-												<span className='mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-300' aria-hidden='true'></span>
+											<span className='mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--coral)]' aria-hidden='true'></span>
 												{feature}
 											</li>
 										))}
@@ -128,7 +136,7 @@ const Work = () => {
 							)}
 
 							{selectedProject.security && (
-								<div className='mt-7 rounded-xl bg-zinc-950/30 p-4 ring-1 ring-inset ring-zinc-50/5'>
+								<div className='mt-7 rounded-xl bg-[var(--ink)]/5 p-4 ring-1 ring-inset ring-[var(--line)]'>
 									<h4 className='mb-2 text-sm font-semibold text-zinc-100'>Security by design</h4>
 									<p className='text-sm leading-6 text-zinc-400'>{selectedProject.security}</p>
 								</div>
@@ -138,7 +146,7 @@ const Work = () => {
 								<h4 className='mb-3 text-sm font-semibold text-zinc-100'>Technology stack</h4>
 								<div className='flex flex-wrap gap-2'>
 									{(selectedProject.technologies || selectedProject.tags).map((tag) => (
-										<span key={tag} className='rounded-md bg-zinc-50/5 px-3 py-2 text-sm text-zinc-400 ring-1 ring-inset ring-zinc-50/5'>
+										<span key={tag} className='rounded-md bg-[var(--ink)]/5 px-3 py-2 text-sm text-[var(--muted)] ring-1 ring-inset ring-[var(--line)]'>
 											{tag}
 										</span>
 									))}
@@ -150,12 +158,12 @@ const Work = () => {
 									href={selectedProject.projectLink}
 									target='_blank'
 									rel='noopener noreferrer'
-									className='inline-flex w-fit items-center gap-2 rounded-lg bg-sky-400 px-4 py-3 font-medium text-zinc-950 shadow-lg shadow-sky-950/20 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-sky-300 active:translate-y-0'
+									className='inline-flex w-fit items-center gap-2 rounded-lg bg-[var(--coral)] px-4 py-3 font-medium text-white shadow-lg shadow-black/10 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[var(--coral-dark)] active:translate-y-0'
 								>
 									Visit live project
 									<span className='material-symbols-rounded' aria-hidden='true'>arrow_outward</span>
 								</a>
-								<p className='text-xs text-zinc-500'>Opens in a new tab</p>
+								<p className='text-xs text-[var(--muted)]'>Opens in a new tab</p>
 							</div>
 						</div>
 					</div>

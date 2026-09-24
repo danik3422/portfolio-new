@@ -41,7 +41,7 @@
 			content="Danylo Syloats is a junior-to-mid-level Java and JavaScript full-stack developer building practical, reliable software with React, Spring, Node.js, and PostgreSQL."
 		/>
 		<meta name="author" content="Danylo Syloats" />
-		<meta name="theme-color" content="#18181b" />
+		<meta name="theme-color" content="#f4f1eb" />
 		<meta name="application-name" content="Danylo Syloats Portfolio" />
 		<meta
 			name="keywords"
@@ -91,11 +91,11 @@
 		<!-- 
      - Favicon
     -->
-		<link rel="icon" href="/favicon.png?v=4" type="image/png" sizes="40x40" />
-		<link rel="shortcut icon" href="/favicon.png?v=4" type="image/png" />
+		<link rel="icon" href="/brand-mark.svg?v=5" type="image/svg+xml" />
+		<link rel="shortcut icon" href="/brand-mark.svg?v=5" type="image/svg+xml" />
 		<link
 			rel="apple-touch-icon"
-			href="/apple-touch-icon.png?v=4"
+			href="/brand-mark.svg?v=5"
 			sizes="180x180"
 		/>
 
@@ -105,9 +105,22 @@
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
 			rel="stylesheet"
 		/>
+		<script>
+			(() => {
+				const savedTheme = localStorage.getItem('portfolio-theme') || 'system'
+				document.documentElement.dataset.theme = savedTheme
+				if (savedTheme === 'system') {
+					const systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+					document.documentElement.dataset.systemTheme = systemIsDark ? 'dark' : 'light'
+					document.documentElement.classList.toggle('dark', systemIsDark)
+				} else {
+					document.documentElement.classList.toggle('dark', savedTheme === 'dark')
+				}
+			})()
+		</script>
 
 		<!-- 
      - Material symbols rounded

@@ -1,23 +1,19 @@
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ReactLenis, useLenis } from 'lenis/react'
-import { useEffect, useState } from 'react'
-
-gsap.registerPlugin(useGSAP, ScrollTrigger)
+import { lazy, Suspense, useEffect, useState } from 'react'
 
 import About from './components/About/About.jsx'
-import BlogPage from './components/BlogPage/BlogPage.jsx'
-import BlogPost from './components/BlogPost/BlogPost.jsx'
 import Certifications from './components/Certifications/Certifications'
 import Contact from './components/Contact/Contact.jsx'
 import Education from './components/Education/Education'
 import Footer from './components/Footer/Footer'
 import Header from './components/Header/Header'
 import Hero from './components/Hero/Hero'
-import NotFound from './components/NotFound/NotFound.jsx'
 import Skill from './components/Skill/Skill'
 import Work from './components/Work/Work'
+
+const BlogPage = lazy(() => import('./components/BlogPage/BlogPage.jsx'))
+const BlogPost = lazy(() => import('./components/BlogPost/BlogPost.jsx'))
+const NotFound = lazy(() => import('./components/NotFound/NotFound.jsx'))
 
 const ScrollToTopButton = () => {
 	const [showScrollTop, setShowScrollTop] = useState(false)
@@ -46,7 +42,7 @@ const ScrollToTopButton = () => {
 			type='button'
 			aria-label='Scroll to top'
 			onClick={scrollToTop}
-			className='fixed bottom-5 right-5 z-40 grid h-11 w-11 place-items-center rounded-xl bg-sky-400 text-zinc-950 shadow-lg shadow-zinc-950/30 transition-transform hover:bg-sky-300 active:scale-95 md:bottom-8 md:right-8'
+			className='fixed bottom-5 right-5 z-40 grid h-11 w-11 place-items-center rounded-xl bg-[var(--coral)] text-white shadow-lg shadow-black/20 transition-transform hover:bg-[var(--coral-dark)] active:scale-95 md:bottom-8 md:right-8'
 		>
 			<span className='material-symbols-rounded' aria-hidden='true'>
 				arrow_upward
@@ -110,33 +106,52 @@ const CleanInternalNavigation = () => {
 }
 
 const App = () => {
-	useGSAP(() => {
-		const elements = gsap.utils.toArray('.reveal-up')
+	useEffect(() => {
+		const elements = document.querySelectorAll('.reveal-up')
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible')
+						observer.unobserve(entry.target)
+					}
+				})
+			},
+			{ rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+		)
 
-		elements.forEach((element) => {
-			gsap.to(element, {
-				scrollTrigger: {
-					trigger: element,
-						start: 'top 88%',
-						end: 'top 55%',
-						toggleActions: 'play none none reverse',
-				},
-				y: 0,
-				opacity: 1,
-					duration: 0.9,
-					ease: 'power3.out',
-			})
-		})
-	})
+		elements.forEach((element) => observer.observe(element))
+		return () => observer.disconnect()
+	}, [])
 
-	if (window.location.pathname === '/blog') return <BlogPage />
+	if (window.location.pathname === '/blog') return (
+		<Suspense fallback={null}>
+			<BlogPage />
+		</Suspense>
+	)
 	if (window.location.pathname.startsWith('/blog/')) {
-		return <BlogPost slug={window.location.pathname.slice('/blog/'.length)} />
+		return (
+			<Suspense fallback={null}>
+				<BlogPost slug={window.location.pathname.slice('/blog/'.length)} />
+			</Suspense>
+		)
 	}
-	if (window.location.pathname !== '/') return <NotFound />
+	if (window.location.pathname !== '/') return (
+		<Suspense fallback={null}>
+			<NotFound />
+		</Suspense>
+	)
 
 	return (
-		<ReactLenis root options={{ smoothWheel: false }}>
+		<ReactLenis
+			root
+			options={{
+				smoothWheel: true,
+				lerp: 0.1,
+				wheelMultiplier: 0.85,
+				duration: 1.2,
+			}}
+		>
 			<ResetScrollOnLoad />
 			<CleanInternalNavigation />
 			<Header />

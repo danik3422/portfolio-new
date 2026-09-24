@@ -8,6 +8,8 @@ const Education = () => {
 	const [dragOffset, setDragOffset] = useState(0)
 	const swipeStart = useRef(null)
 	const wasDragged = useRef(false)
+	const suppressClickUntil = useRef(0)
+	const activePointerId = useRef(null)
 	const wheelLockUntil = useRef(0)
 
 	const item = education[activeEducation]
@@ -31,6 +33,7 @@ const Education = () => {
 	const handlePointerDown = (event) => {
 		clearTextSelection()
 		swipeStart.current = event.clientX
+		activePointerId.current = event.pointerId
 		wasDragged.current = false
 		setIsDragging(false)
 		setDragOffset(0)
@@ -52,13 +55,15 @@ const Education = () => {
 		if (swipeStart.current === null) return
 		const distance = event.clientX - swipeStart.current
 		swipeStart.current = null
+		if (activePointerId.current !== null && event.currentTarget.hasPointerCapture(activePointerId.current)) {
+			event.currentTarget.releasePointerCapture(activePointerId.current)
+		}
+		activePointerId.current = null
 		setIsDragging(false)
 		setDragOffset(0)
 		clearTextSelection()
 		if (wasDragged.current) {
-			window.setTimeout(() => {
-				wasDragged.current = false
-			}, 0)
+			suppressClickUntil.current = performance.now() + 350
 		}
 		if (Math.abs(distance) < 50) return
 		if (distance < 0) showNext()
@@ -66,10 +71,7 @@ const Education = () => {
 	}
 
 	const handleCardClick = () => {
-		if (wasDragged.current) {
-			wasDragged.current = false
-			return
-		}
+		if (performance.now() < suppressClickUntil.current) return
 		showNext()
 	}
 
@@ -100,7 +102,7 @@ const Education = () => {
 
 	return (
 		<section id='education' className='section'>
-			<div className='container'>
+			<div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
 				<h2 className='headline-2 mb-8 reveal-up'>Education</h2>
 
 				<div
@@ -110,11 +112,11 @@ const Education = () => {
 				>
 					<article
 						key={activeEducation}
-						className={`education-card education-card-${slideDirection} ${isDragging ? 'education-card-dragging' : ''} flex w-full min-w-0 cursor-pointer flex-col rounded-2xl bg-zinc-800 p-6 ring-1 ring-inset ring-zinc-50/5`}
+						className={`education-card bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/70 dark:border-neutral-800 shadow-sm rounded-2xl education-card-${slideDirection} ${isDragging ? 'education-card-dragging' : ''} flex w-full min-w-0 cursor-pointer flex-col p-6`}
 						style={
 							isDragging
 								? {
-										transform: `translate3d(${Math.max(-180, Math.min(180, dragOffset * 0.75))}px, 0, 0) rotate(${dragOffset / 70}deg)`,
+												transform: `translate3d(${Math.max(-180, Math.min(180, dragOffset * 0.75))}px, 0, 0) rotate(${dragOffset / 140}deg)`,
 									}
 								: undefined
 						}
@@ -129,7 +131,9 @@ const Education = () => {
 						onClick={handleCardClick}
 						onPointerCancel={() => {
 							swipeStart.current = null
+							activePointerId.current = null
 							wasDragged.current = false
+							suppressClickUntil.current = performance.now() + 350
 							setIsDragging(false)
 							setDragOffset(0)
 							clearTextSelection()
@@ -186,7 +190,7 @@ const Education = () => {
 								type='button'
 								aria-label={`Show ${entry.title}`}
 								aria-pressed={activeEducation === index}
-								className={`h-2 rounded-full transition-all ${activeEducation === index ? 'w-6 bg-sky-400' : 'w-2 bg-zinc-600'}`}
+								className={`h-2 rounded-full transition-all ${activeEducation === index ? 'w-6 bg-[var(--coral)]' : 'w-2 bg-[var(--line)]'}`}
 								onClick={() => {
 									setSlideDirection(
 										index > activeEducation ? 'next' : 'previous',

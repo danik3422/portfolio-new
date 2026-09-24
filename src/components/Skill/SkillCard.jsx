@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const SkillCard = ({ imgSrc, label, desc, classes }) => {
 	return (
-		<article className={'skill-card group ' + classes}>
+		<article className={'skill-card bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border border-neutral-200/70 dark:border-neutral-800 shadow-sm rounded-2xl group ' + classes}>
 			<figure className='skill-card-icon'>
 				<img src={imgSrc} width={32} height={32} alt={label} />
 			</figure>

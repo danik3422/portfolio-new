@@ -1,28 +1,14 @@
 import logo from '@images/logo.svg'
+import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { LiquidGlassSurface } from '../Common/LiquidGlassSurface'
 import Navbar from '../Navbar/Navbar'
+import ThemeToggle from './ThemeToggle'
+
 const Header = () => {
 	const [navOpen, setNavOpen] = useState(false)
-	const [footerVisible, setFooterVisible] = useState(false)
-	const [navVisible, setNavVisible] = useState(true)
+	const [activeSection, setActiveSection] = useState('home')
 	const menuRef = useRef(null)
-
-	useEffect(() => {
-		const footer = document.querySelector('footer[data-nav-section="contact"]')
-		if (!footer) return
-		const updateFooterVisibility = () => {
-			const isVisible = footer.getBoundingClientRect().top < window.innerHeight
-			setFooterVisible(isVisible)
-			if (!isVisible) setNavVisible(true)
-		}
-		updateFooterVisibility()
-		window.addEventListener('scroll', updateFooterVisibility, { passive: true })
-		window.addEventListener('resize', updateFooterVisibility)
-		return () => {
-			window.removeEventListener('scroll', updateFooterVisibility)
-			window.removeEventListener('resize', updateFooterVisibility)
-		}
-	}, [])
 
 	useEffect(() => {
 		if (!navOpen) return
@@ -34,22 +20,6 @@ const Header = () => {
 	}, [navOpen])
 
 	useEffect(() => {
-		if (!footerVisible) return
-		let timer
-		const showNavigation = () => {
-			setNavVisible(true)
-			clearTimeout(timer)
-			timer = setTimeout(() => setNavVisible(false), 2000)
-		}
-		showNavigation()
-		document.addEventListener('mousemove', showNavigation)
-		return () => {
-			clearTimeout(timer)
-			document.removeEventListener('mousemove', showNavigation)
-		}
-	}, [footerVisible])
-
-	useEffect(() => {
 		const closeOnEscape = (event) => {
 			if (event.key === 'Escape') setNavOpen(false)
 		}
@@ -58,19 +28,26 @@ const Header = () => {
 	}, [])
 
 	return (
-		<header
-			className={`fixed top-0 left-0 w-full h-20 flex items-center z-40 bg-gradient-to-b from-zinc-900 to-zinc-900/0 transition-opacity duration-300 ${footerVisible && !navVisible ? 'md:opacity-0 md:pointer-events-none' : 'opacity-100'}`}
+		<motion.header
+			className='fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none'
+			initial={{ y: -12, opacity: 1 }}
+			animate={{ y: 0, opacity: 1 }}
+			transition={{ type: 'spring', stiffness: 220, damping: 22 }}
 		>
-			<div className='site-header-inner w-full mx-auto px-4 flex flex-nowrap justify-between items-center md:px-[5.4vw]'>
+			<div
+				className='relative pointer-events-auto w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-2 rounded-full overflow-hidden bg-white/70 dark:bg-neutral-900/60 backdrop-blur-2xl backdrop-saturate-[180%] border border-white/80 dark:border-white/10 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,0.9)] dark:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)] transform-gpu will-change-transform mobile-island'
+			>
+				<LiquidGlassSurface className='-z-10' />
+				<div className='relative z-10 flex items-center justify-between w-full'>
 				<h1>
-					<a href='/' className='logo'>
+					<a href='/' className='logo logo-lockup'>
 						<img src={logo} width={40} height={40} alt='Danylo Syloats home' />
 					</a>
 				</h1>
 
 				<div
 					ref={menuRef}
-					className='site-header-menu relative min-w-0 ml-auto'
+					className='site-header-menu relative min-w-0 ml-auto md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2'
 				>
 					<button
 						type='button'
@@ -87,25 +64,26 @@ const Header = () => {
 						</span>
 					</button>
 
-					<Navbar navOpen={navOpen} onNavigate={() => setNavOpen(false)} />
+					<Navbar
+						navOpen={navOpen}
+						onNavigate={() => setNavOpen(false)}
+						onActiveSection={setActiveSection}
+					/>
 				</div>
 
-				<div className='site-header-actions flex items-center gap-2'>
-					<a href='/blog' className='btn btn-outline max-md:hidden'>
-						Blog
-						<span className='material-symbols-rounded' aria-hidden='true'>
-							arrow_outward
-						</span>
-					</a>
+				<div className='site-header-actions flex items-center gap-2.5'>
+					<ThemeToggle />
 					<a
 						href='#contact'
-						className={`btn btn-secondary max-md:hidden ${footerVisible ? 'contact-button-active' : ''}`}
+						aria-current={activeSection === 'contact' ? 'page' : undefined}
+						className={`btn rounded-full px-4 py-1.5 text-xs font-semibold bg-neutral-950 text-white hover:bg-neutral-800 shadow-sm transition-all hover:scale-[1.02] active:scale-95 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 max-md:hidden ${activeSection === 'contact' ? 'contact-button-active' : ''}`}
 					>
 						Contact Me
 					</a>
 				</div>
+				</div>
 			</div>
-		</header>
+		</motion.header>
 	)
 }
 

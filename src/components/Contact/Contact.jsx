@@ -86,6 +86,7 @@ const Contact = () => {
 	const [status, setStatus] = useState(null)
 	const [isStatusDismissing, setIsStatusDismissing] = useState(false)
 	const [loading, setLoading] = useState(false)
+	const [errors, setErrors] = useState({})
 
 	useEffect(() => {
 		if (!status) return
@@ -106,10 +107,33 @@ const Contact = () => {
 			...prev,
 			[name]: value,
 		}))
+		setErrors((prev) => ({ ...prev, [name]: '' }))
+	}
+
+	const validateForm = () => {
+		const nextErrors = {}
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+		if (!data.name.trim()) nextErrors.name = 'Please enter your name.'
+		if (!data.email.trim()) nextErrors.email = 'Please enter your email.'
+		else if (!emailPattern.test(data.email.trim())) {
+			nextErrors.email = 'Please enter a valid email address.'
+		}
+		if (!data.message.trim()) nextErrors.message = 'Please add a short message.'
+		else if (data.message.trim().length < 10) {
+			nextErrors.message = 'Please write at least 10 characters.'
+		}
+
+		return nextErrors
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		const validationErrors = validateForm()
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(validationErrors)
+			return
+		}
 		setLoading(true)
 		setStatus(null)
 		setIsStatusDismissing(false)
@@ -129,6 +153,7 @@ const Contact = () => {
 			if (response.ok) {
 				setStatus('success')
 				setIsStatusDismissing(false)
+				setErrors({})
 				setData({ name: '', email: '', message: '' })
 			} else {
 				setStatus('error')
@@ -145,7 +170,7 @@ const Contact = () => {
 
 	return (
 		<section id='contact' className='section'>
-			<div className='container lg:grid lg:grid-cols-2 lg:items-stretch'>
+			<div className='w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 rounded-3xl bg-[#15171c] border border-white/10 p-8 sm:p-12 lg:grid lg:grid-cols-2 lg:items-stretch'>
 				<div className='mb-12 lg:mb-0 lg:flex lg:flex-col'>
 					<h2 className='headline-2 lg:max-w-[12ch] reveal-up'>
 						Looking to team up?
@@ -171,7 +196,7 @@ const Contact = () => {
 					</div>
 				</div>
 
-				<form onSubmit={handleSubmit} className='xl:pl-10 2xl:pl-20'>
+				<form onSubmit={handleSubmit} noValidate className='xl:pl-10 2xl:pl-20'>
 					<div className='md:grid md:items-center md:grid-cols-2 md:gap-2'>
 						<div className='mb-4'>
 							<label htmlFor='name' className='label reveal-up'>
@@ -181,13 +206,15 @@ const Contact = () => {
 								type='text'
 								id='name'
 								name='name'
-								required
 								autoComplete='name'
 								placeholder='Name'
 								value={data.name}
 								onChange={handleChange}
-								className='text-field reveal-up'
+								aria-invalid={Boolean(errors.name)}
+								aria-describedby={errors.name ? 'name-error' : undefined}
+								className='text-field bg-neutral-800/80 border border-neutral-700 text-white placeholder-neutral-500 rounded-xl px-4 py-3 reveal-up'
 							/>
+							<p id='name-error' className={errors.name ? 'field-error' : 'field-error field-error-empty'}>{errors.name || ' '}</p>
 						</div>
 
 						<div className='mb-4'>
@@ -198,13 +225,15 @@ const Contact = () => {
 								type='email'
 								id='email'
 								name='email'
-								required
 								autoComplete='email'
 								placeholder='email@example.com'
 								value={data.email}
 								onChange={handleChange}
-								className='text-field reveal-up'
+								aria-invalid={Boolean(errors.email)}
+								aria-describedby={errors.email ? 'email-error' : undefined}
+								className='text-field bg-neutral-800/80 border border-neutral-700 text-white placeholder-neutral-500 rounded-xl px-4 py-3 reveal-up'
 							/>
+							<p id='email-error' className={errors.email ? 'field-error' : 'field-error field-error-empty'}>{errors.email || ' '}</p>
 						</div>
 					</div>
 
@@ -215,18 +244,20 @@ const Contact = () => {
 						<textarea
 							id='message'
 							name='message'
-							required
 							placeholder='Message'
 							value={data.message}
 							onChange={handleChange}
-							className='text-field resize-y min-h-32 max-h-80 reveal-up'
+							aria-invalid={Boolean(errors.message)}
+							aria-describedby={errors.message ? 'message-error' : undefined}
+							className='text-field bg-neutral-800/80 border border-neutral-700 text-white placeholder-neutral-500 rounded-xl px-4 py-3 resize-y min-h-32 max-h-80 reveal-up'
 						></textarea>
+						<p id='message-error' className={errors.message ? 'field-error' : 'field-error field-error-empty'}>{errors.message || ' '}</p>
 					</div>
 
 					<button
 						type='submit'
 						disabled={loading}
-						className='btn btn-primary [&]:max-w-full w-full justify-center reveal-up'
+						className='btn btn-primary text-white font-medium [&]:max-w-full w-full justify-center reveal-up'
 					>
 						{loading ? 'Sending...' : 'Submit'}
 					</button>

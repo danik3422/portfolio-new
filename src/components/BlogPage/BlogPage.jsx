@@ -15,7 +15,7 @@ const BlogPage = () => {
 	}, [])
 
 	return (
-		<div className='min-h-screen bg-zinc-900'>
+		<div className='min-h-screen'>
 			<header className='flex h-20 items-center'>
 				<div className='container flex w-full items-center justify-between'>
 					<a href='/' className='logo' aria-label='Danylo Syloats home'>
