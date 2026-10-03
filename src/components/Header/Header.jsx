@@ -29,7 +29,7 @@ const Header = () => {
 
 	return (
 		<motion.header
-			className='fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none'
+			className='fixed top-4 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none'
 			initial={{ y: -12, opacity: 1 }}
 			animate={{ y: 0, opacity: 1 }}
 			transition={{ type: 'spring', stiffness: 220, damping: 22 }}
@@ -47,7 +47,7 @@ const Header = () => {
 
 				<div
 					ref={menuRef}
-					className='site-header-menu relative min-w-0 ml-auto md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2'
+					className='site-header-menu relative min-w-0 ml-auto min-[1025px]:absolute min-[1025px]:left-1/2 min-[1025px]:top-1/2 min-[1025px]:-translate-x-1/2 min-[1025px]:-translate-y-1/2'
 				>
 					<button
 						type='button'
@@ -56,7 +56,7 @@ const Header = () => {
 						}
 						aria-expanded={navOpen}
 						aria-controls='primary-navigation'
-						className='menu-btn md:hidden'
+						className='menu-btn min-[1025px]:hidden'
 						onClick={() => setNavOpen((prev) => !prev)}
 					>
 						<span className='material-symbols-rounded'>
@@ -76,7 +76,7 @@ const Header = () => {
 					<a
 						href='#contact'
 						aria-current={activeSection === 'contact' ? 'page' : undefined}
-						className={`btn rounded-full px-4 py-1.5 text-xs font-semibold bg-neutral-950 text-white hover:bg-neutral-800 shadow-sm transition-all hover:scale-[1.02] active:scale-95 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 max-md:hidden ${activeSection === 'contact' ? 'contact-button-active' : ''}`}
+						className={`btn rounded-full px-4 py-1.5 text-xs font-semibold bg-neutral-950 text-white hover:bg-neutral-800 shadow-sm transition-all hover:scale-[1.02] active:scale-95 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-200 max-[1024px]:hidden ${activeSection === 'contact' ? 'contact-button-active' : ''}`}
 					>
 						Contact Me
 					</a>

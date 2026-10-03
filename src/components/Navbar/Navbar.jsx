@@ -55,17 +55,27 @@ const Navbar = ({ navOpen, onNavigate, onActiveSection }) => {
 		if (link) setActiveLink(link)
 	}, [onActiveSection, setActiveLink])
 
-	const lenis = useLenis(updateActiveLink)
+	const lenis = useLenis()
 
 	useEffect(() => {
+		let frame = 0
+		const scheduleUpdate = () => {
+			if (frame) return
+			frame = requestAnimationFrame(() => {
+				frame = 0
+				updateActiveLink()
+			})
+		}
+
 		positionActiveBox()
 		window.addEventListener('resize', positionActiveBox)
 		updateActiveLink()
-		window.addEventListener('scroll', updateActiveLink, { passive: true })
-		window.addEventListener('resize', updateActiveLink)
+		window.addEventListener('scroll', scheduleUpdate, { passive: true })
+		window.addEventListener('resize', scheduleUpdate)
 		return () => {
-			window.removeEventListener('scroll', updateActiveLink)
-			window.removeEventListener('resize', updateActiveLink)
+			cancelAnimationFrame(frame)
+			window.removeEventListener('scroll', scheduleUpdate)
+			window.removeEventListener('resize', scheduleUpdate)
 			window.removeEventListener('resize', positionActiveBox)
 		}
 	}, [positionActiveBox, updateActiveLink])
@@ -143,7 +153,7 @@ const Navbar = ({ navOpen, onNavigate, onActiveSection }) => {
 		{
 			label: 'Contact',
 			link: '#contact',
-			className: 'nav-link md:hidden',
+			className: 'nav-link min-[1025px]:hidden',
 		},
 	]
 
@@ -151,7 +161,7 @@ const Navbar = ({ navOpen, onNavigate, onActiveSection }) => {
 		<nav
 			ref={navbar}
 			id='primary-navigation'
-			className={'navbar hidden md:flex md:items-center md:gap-1 md:relative bg-transparent border-0 shadow-none ' + (navOpen ? 'active' : '')}
+			className={'navbar hidden min-[1025px]:flex min-[1025px]:items-center min-[1025px]:gap-1 min-[1025px]:relative bg-transparent border-0 shadow-none ' + (navOpen ? 'active' : '')}
 		>
 			{navItems.map(({ label, link, className, ref }, key) => (
 				<a

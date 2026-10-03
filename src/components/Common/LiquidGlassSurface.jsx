@@ -67,20 +67,16 @@ export const LiquidGlassSurface = ({ className = '', cornerRadius = 9999 }) => {
 			material.uniforms.u_resolution.value.set(width, height)
 		}
 
-		let animationId
-		const animate = (time) => {
-			material.uniforms.u_time.value = time * 0.001
-			renderer.render(scene, camera)
-			animationId = requestAnimationFrame(animate)
-		}
-
 		resize()
-		animate(0)
-		window.addEventListener('resize', resize, { passive: true })
+		renderer.render(scene, camera)
+		const handleResize = () => {
+			resize()
+			renderer.render(scene, camera)
+		}
+		window.addEventListener('resize', handleResize, { passive: true })
 
 		return () => {
-			window.removeEventListener('resize', resize)
-			cancelAnimationFrame(animationId)
+			window.removeEventListener('resize', handleResize)
 			geometry.dispose()
 			material.dispose()
 			renderer.dispose()

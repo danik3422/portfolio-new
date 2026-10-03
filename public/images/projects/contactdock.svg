@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3024 1666" role="img" aria-label="ContactDock preview">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15171c"/><stop offset="1" stop-color="#262b31"/></linearGradient></defs>
+<rect width="3024" height="1666" fill="url(#g)"/>
+<g transform="translate(1512 833)">
+<rect x="-420" y="-300" width="840" height="600" rx="56" fill="#1c1f26" stroke="#ffffff1a" stroke-width="4"/>
+<rect x="-340" y="-220" width="440" height="84" rx="42" fill="#df654d"/>
+<rect x="-100" y="-90" width="440" height="84" rx="42" fill="#ffffff14"/>
+<rect x="-340" y="40" width="360" height="84" rx="42" fill="#ffffff14"/>
+<path d="M300 220l-170 60 40-100z" fill="#df654d"/>
+</g>
+<text x="1512" y="1330" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="120" font-weight="600" fill="#fafafa">ContactDock</text>
+</svg>

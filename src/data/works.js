@@ -40,5 +40,34 @@ export const works = [
 		],
 		tags: ['SaaS', 'Realtime', 'Team productivity'],
 		projectLink: 'https://kanbanhub.app/',
+		repoLink: 'https://github.com/danik3422/kanban-flow',
+	},
+	{
+		imgSrc: '/images/projects/contactdock.svg',
+		title: 'ContactDock',
+		visible: true,
+		description:
+			'A Telegram bot and API that turns any website contact form into instant Telegram messages, with no backend needed on the site.',
+		longDescription:
+			'ContactDock is a Telegram bot (@ContactDockBot) with a small serverless API. It issues signed links for a website, validates incoming contact form submissions, and delivers them straight to your Telegram chat. This portfolio contact form is powered by it.',
+		features: [
+			'Telegram bot that generates signed contact-form links per site',
+			'Serverless API endpoint deployed on Vercel',
+			'Signed tokens bound to an allowed site origin and a set of form fields',
+			'Origin checks and field validation before anything is delivered',
+			'Instant delivery of submissions to a Telegram chat',
+		],
+		technologies: [
+			'Node.js',
+			'Telegram Bot API',
+			'Vercel Serverless Functions',
+			'REST API',
+			'CORS',
+			'Signed tokens',
+		],
+		tags: ['Telegram bot', 'API', 'Serverless'],
+		projectLink: 'https://t.me/ContactDockBot',
+		projectLinkLabel: 'Open Telegram bot',
+		repoLink: 'https://github.com/danik3422/contact-telegram',
 	},
 ]

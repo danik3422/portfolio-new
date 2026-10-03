@@ -43,7 +43,7 @@ const Footer = () => {
 								{sitemap.map(({ label, href }, key) => (
 									<li key={key}>
 										<a
-											href={href}
+											href={window.location.pathname === '/' ? href : `/${href}`}
 											className='block text-sm text-[var(--muted)] py-1 transition-colors hover:text-[var(--ink)] reveal-up'
 										>
 											{label}

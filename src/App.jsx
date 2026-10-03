@@ -107,7 +107,7 @@ const CleanInternalNavigation = () => {
 
 const App = () => {
 	useEffect(() => {
-		const elements = document.querySelectorAll('.reveal-up')
+		const observed = new WeakSet()
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -120,8 +120,27 @@ const App = () => {
 			{ rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
 		)
 
-		elements.forEach((element) => observer.observe(element))
-		return () => observer.disconnect()
+		const observeElement = (element) => {
+			if (observed.has(element) || element.classList.contains('is-visible')) return
+			observed.add(element)
+			observer.observe(element)
+		}
+		const observeWithin = (node) => {
+			if (node.nodeType !== Node.ELEMENT_NODE) return
+			if (node.matches('.reveal-up')) observeElement(node)
+			node.querySelectorAll('.reveal-up').forEach(observeElement)
+		}
+
+		observeWithin(document.body)
+		const mutationObserver = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => mutation.addedNodes.forEach(observeWithin))
+		})
+		mutationObserver.observe(document.body, { childList: true, subtree: true })
+
+		return () => {
+			mutationObserver.disconnect()
+			observer.disconnect()
+		}
 	}, [])
 
 	if (window.location.pathname === '/blog') return (

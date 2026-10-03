@@ -130,24 +130,12 @@ textarea:focus-visible {
 }
 
 .project-details-modal {
-	scrollbar-gutter: stable;
-	scrollbar-width: thin;
-	scrollbar-color: rgb(113 113 122 / 70%) transparent;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
 
 .project-details-modal::-webkit-scrollbar {
-	width: 0.5rem;
-}
-
-.project-details-modal::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-.project-details-modal::-webkit-scrollbar-thumb {
-	background: rgb(113 113 122 / 70%);
-	border: 2px solid transparent;
-	border-radius: 999px;
-	background-clip: padding-box;
+	display: none;
 }
 
 .section {
@@ -252,7 +240,7 @@ textarea:focus-visible {
 
 /* Navbar */
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
 	.site-header-menu {
 		position: absolute;
 		top: 50%;
@@ -761,7 +749,7 @@ textarea:focus-visible {
 		margin-bottom: 0;
 	}
 
-	.work-grid .project-card > .flex {
+	.work-grid .project-card > div.flex {
 		padding: 1rem 1rem 1rem 0;
 	}
 }

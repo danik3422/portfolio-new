@@ -87,16 +87,18 @@ const Work = () => {
 						onTouchMove={(event) => event.stopPropagation()}
 						className='project-details-modal relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl touch-pan-y overscroll-contain overflow-y-auto rounded-2xl border border-[var(--line)] p-3 shadow-2xl shadow-black/30 sm:p-5'
 					>
-						<button
-							type='button'
-							aria-label='Close project details'
-							onClick={() => setSelectedProject(null)}
-							className='absolute right-5 top-5 z-10 grid h-9 w-9 place-items-center rounded-full bg-[var(--ink)]/10 text-[var(--muted)] shadow-lg shadow-black/10 ring-1 ring-inset ring-[var(--line)] backdrop-blur-md transition-[background-color,color,transform] hover:scale-105 hover:bg-[var(--ink)]/20 hover:text-[var(--coral)] active:scale-95'
-						>
-							<span className='material-symbols-rounded text-[21px]' aria-hidden='true'>close</span>
-						</button>
+						<div className='sticky top-0 z-10 -mx-3 -mt-3 mb-3 flex justify-end px-3 pt-3 pb-1 sm:static sm:m-0 sm:mb-3 sm:p-0' style={{ background: 'var(--paper-strong)' }}>
+							<button
+								type='button'
+								aria-label='Close project details'
+								onClick={() => setSelectedProject(null)}
+								className='grid h-9 w-9 place-items-center rounded-full bg-[var(--ink)]/10 text-[var(--muted)] ring-1 ring-inset ring-[var(--line)] transition-[background-color,color,transform] hover:scale-105 hover:bg-[var(--ink)]/20 hover:text-[var(--coral)] active:scale-95'
+							>
+								<span className='material-symbols-rounded text-[21px]' aria-hidden='true'>close</span>
+							</button>
+						</div>
 
-						<figure className='img-box mb-7 flex aspect-[3024/1666] items-center justify-center overflow-hidden rounded-xl bg-[var(--ink)]/5 ring-1 ring-inset ring-[var(--line)]'>
+						<figure className='img-box mb-5 flex aspect-[3024/1666] sm:mb-7 items-center justify-center overflow-hidden rounded-xl bg-[var(--ink)]/5 ring-1 ring-inset ring-[var(--line)]'>
 							<img
 								src={selectedProject.imgSrc}
 								alt={`${selectedProject.title} preview`}
@@ -154,16 +156,28 @@ const Work = () => {
 							</div>
 
 							<div className='mt-8 flex flex-col gap-4 border-t border-zinc-50/10 pt-5 sm:flex-row sm:items-center sm:justify-between'>
-								<a
-									href={selectedProject.projectLink}
-									target='_blank'
-									rel='noopener noreferrer'
-									className='inline-flex w-fit items-center gap-2 rounded-lg bg-[var(--coral)] px-4 py-3 font-medium text-white shadow-lg shadow-black/10 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[var(--coral-dark)] active:translate-y-0'
-								>
-									Visit live project
-									<span className='material-symbols-rounded' aria-hidden='true'>arrow_outward</span>
-								</a>
-								<p className='text-xs text-[var(--muted)]'>Opens in a new tab</p>
+								<div className='flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
+									<a
+										href={selectedProject.projectLink}
+										target='_blank'
+										rel='noopener noreferrer'
+										className='inline-flex w-full items-center justify-center gap-2 sm:w-fit rounded-lg bg-[var(--coral)] px-4 py-3 font-medium text-white shadow-lg shadow-black/10 transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[var(--coral-dark)] active:translate-y-0'
+									>
+										{selectedProject.projectLinkLabel || 'Visit live project'}
+										<span className='material-symbols-rounded' aria-hidden='true'>arrow_outward</span>
+									</a>
+									{selectedProject.repoLink && (
+										<a
+											href={selectedProject.repoLink}
+											target='_blank'
+											rel='noopener noreferrer'
+											className='inline-flex w-full items-center justify-center gap-2 sm:w-fit rounded-lg bg-[var(--ink)]/5 px-4 py-3 font-medium text-[var(--ink)] ring-1 ring-inset ring-[var(--line)] transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[var(--ink)]/10 active:translate-y-0'
+										>
+											Source code
+											<span className='material-symbols-rounded' aria-hidden='true'>code</span>
+										</a>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>
