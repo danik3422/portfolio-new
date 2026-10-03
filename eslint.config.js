@@ -36,7 +36,7 @@ export default [
 		},
 	},
 	{
-		files: ['netlify/functions/**/*.js'],
+		files: ['netlify/functions/**/*.js', 'scripts/**/*.js'],
 		languageOptions: {
 			globals: globals.node,
 		},

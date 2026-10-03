@@ -1,5 +1,5 @@
 const siteUrl = 'https://danylodev.com'
-const defaultImage = `${siteUrl}/images/projects/kanbanhub.png`
+const defaultImage = `${siteUrl}/images/og-image.png`
 
 const setMeta = (attribute, key, content) => {
 	let element = document.head.querySelector(`meta[${attribute}="${key}"]`)
@@ -17,7 +17,8 @@ export const setPageMetadata = ({
 	path,
 	type = 'website',
 	image = defaultImage,
-	imageAlt = 'Danylo Syloats portfolio preview',
+	imageAlt = 'Danylo Syloats - Java and JavaScript Full-Stack Developer',
+	robots = 'index, follow, max-image-preview:large, max-snippet:-1',
 }) => {
 	const canonicalUrl = `${siteUrl}${path}`
 	document.title = title
@@ -25,6 +26,7 @@ export const setPageMetadata = ({
 		.querySelector('link[rel="canonical"]')
 		?.setAttribute('href', canonicalUrl)
 	setMeta('name', 'description', description)
+	setMeta('name', 'robots', robots)
 	setMeta('property', 'og:title', title)
 	setMeta('property', 'og:description', description)
 	setMeta('property', 'og:type', type)

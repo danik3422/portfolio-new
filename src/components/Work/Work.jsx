@@ -87,7 +87,7 @@ const Work = () => {
 						onTouchMove={(event) => event.stopPropagation()}
 						className='project-details-modal relative max-h-[calc(100dvh-2rem)] w-full max-w-3xl touch-pan-y overscroll-contain overflow-y-auto rounded-2xl border border-[var(--line)] p-3 shadow-2xl shadow-black/30 sm:p-5'
 					>
-						<div className='sticky top-0 z-10 -mx-3 -mt-3 mb-3 flex justify-end px-3 pt-3 pb-1 sm:static sm:m-0 sm:mb-3 sm:p-0' style={{ background: 'var(--paper-strong)' }}>
+						<div className='sticky -top-3 z-10 -mx-3 -mt-3 mb-3 flex justify-end px-3 pt-3 pb-1 sm:static sm:m-0 sm:mb-3 sm:p-0' style={{ background: 'var(--paper-strong)' }}>
 							<button
 								type='button'
 								aria-label='Close project details'

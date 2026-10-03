@@ -3412,7 +3412,9 @@ footer .text-zinc-500 {
 @media (max-width: 1024px) {
 	.mobile-island {
 		overflow: visible;
-		border-radius: 1.25rem;
+		border-radius: 9999px;
+		isolation: isolate;
+		-webkit-backface-visibility: hidden;
 	}
 
 	.mobile-island .site-header-menu {

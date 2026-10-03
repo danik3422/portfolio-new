@@ -1,7 +1,19 @@
 import logo from '@images/logo.svg'
+import { useEffect } from 'react'
+
+import { setPageMetadata } from '../../utils/seo'
 import Footer from '../Footer/Footer'
 
 const NotFound = () => {
+	useEffect(() => {
+		setPageMetadata({
+			title: 'Page not found | Danylo Syloats',
+			description: 'This page does not exist. Return to the portfolio of Danylo Syloats.',
+			path: window.location.pathname,
+			robots: 'noindex, follow',
+		})
+	}, [])
+
 	return (
 		<div className='flex min-h-screen flex-col'>
 			<header className='flex h-20 items-center'>

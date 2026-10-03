@@ -3,6 +3,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
 
+import { seoPrerender } from './scripts/seo-prerender.js'
+
 // Manually recreate __dirname
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -14,5 +16,5 @@ export default defineConfig({
 			'@images': path.resolve(__dirname, 'src/images'),
 		},
 	},
-	plugins: [react()],
+	plugins: [react(), seoPrerender()],
 })
