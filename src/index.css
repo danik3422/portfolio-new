@@ -3616,6 +3616,34 @@ footer.section .container {
 	color: var(--ink);
 }
 
+:root:not(.dark) #contact .status-message[role='alert'],
+:root[data-theme='light'] #contact .status-message[role='alert'],
+:root[data-theme='system'][data-system-theme='light'] #contact .status-message[role='alert'] {
+	color: #991b1b;
+	background: #fef2f2;
+	border-color: #fecaca;
+}
+
+:root:not(.dark) #contact .status-message[role='alert'] p.mt-1,
+:root[data-theme='light'] #contact .status-message[role='alert'] p.mt-1,
+:root[data-theme='system'][data-system-theme='light'] #contact .status-message[role='alert'] p.mt-1 {
+	color: #7f1d1d;
+}
+
+:root:not(.dark) #contact .status-message[role='status'],
+:root[data-theme='light'] #contact .status-message[role='status'],
+:root[data-theme='system'][data-system-theme='light'] #contact .status-message[role='status'] {
+	color: #166534;
+	background: #f0fdf4;
+	border-color: #bbf7d0;
+}
+
+:root:not(.dark) #contact .status-message[role='status'] p.mt-1,
+:root[data-theme='light'] #contact .status-message[role='status'] p.mt-1,
+:root[data-theme='system'][data-system-theme='light'] #contact .status-message[role='status'] p.mt-1 {
+	color: #14532d;
+}
+
 :root:not(.dark) #contact .text-field,
 :root[data-theme='light'] #contact .text-field,
 :root[data-theme='system'][data-system-theme='light'] #contact .text-field {

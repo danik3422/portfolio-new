@@ -81,6 +81,7 @@ const Contact = () => {
 		name: '',
 		email: '',
 		message: '',
+		website: '',
 	})
 
 	const [status, setStatus] = useState(null)
@@ -129,6 +130,8 @@ const Contact = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		if (data.website) return
+
 		const validationErrors = validateForm()
 		if (Object.keys(validationErrors).length > 0) {
 			setErrors(validationErrors)
@@ -139,22 +142,19 @@ const Contact = () => {
 		setIsStatusDismissing(false)
 
 		try {
-			const response = await fetch(
-				'https://contact-telegram.vercel.app/api/contact',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
+			const response = await fetch('/.netlify/functions/contact', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
 				},
-			)
+				body: JSON.stringify(data),
+			})
 
 			if (response.ok) {
 				setStatus('success')
 				setIsStatusDismissing(false)
 				setErrors({})
-				setData({ name: '', email: '', message: '' })
+				setData({ name: '', email: '', message: '', website: '' })
 			} else {
 				setStatus('error')
 				setIsStatusDismissing(false)
@@ -197,6 +197,16 @@ const Contact = () => {
 				</div>
 
 				<form onSubmit={handleSubmit} noValidate className='xl:pl-10 2xl:pl-20'>
+					<input
+						type='text'
+						name='website'
+						value={data.website}
+						onChange={handleChange}
+						tabIndex={-1}
+						autoComplete='off'
+						aria-hidden='true'
+						className='sr-only'
+					/>
 					<div className='md:grid md:items-center md:grid-cols-2 md:gap-2'>
 						<div className='mb-4'>
 							<label htmlFor='name' className='label reveal-up'>

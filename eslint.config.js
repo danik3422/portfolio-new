@@ -35,4 +35,10 @@ export default [
 			],
 		},
 	},
+	{
+		files: ['netlify/functions/**/*.js'],
+		languageOptions: {
+			globals: globals.node,
+		},
+	},
 ]
